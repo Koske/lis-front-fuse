@@ -1,0 +1,19 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  overflow: auto;
+  width: 80em;
+}
+td {
+  cursor: pointer;
+
+}
+td.active {
+    background-color: #009DFA;
+}
+form {
+	height: 20px;
+    width: 70px;
+}

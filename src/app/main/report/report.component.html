@@ -1,0 +1,69 @@
+<div id="academy-courses" class="page-layout simple">
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="hero-text">
+            <h1 class="name" [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                {{ firstName }} {{ lastName }} presence report
+            </h1>
+            <div>
+	            <button type="button" class="yearButton" (click)="minusYear()" mat-raised-button color="green"><</button>
+	            <h1 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}" class="year">
+	                {{ currentYear }}
+	            </h1>
+	            <button type="button" class="yearButton" (click)="plusYear()" mat-raised-button color="green">></button>
+	        </div>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <div fxLayout="column" fxLayoutAlign="center">
+
+
+            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+                <div class="course" *ngFor="let month of info" fxFlex="100" fxFlex.gt-xs="50"
+                     fxFlex.gt-sm="33"  [@animate]="{value:'*',params:{y:'100%'}}" (click)="onMonth(month.name)">
+
+                    <div class="course-content" fxLayout="column" >
+
+                        <div class="header" fxLayout="row" fxLayoutAlign="center center"
+                             >
+
+                            <div class="category" fxFlex >
+                                {{month.name}}
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex
+                        	
+                        >
+                            <div class="h3">Average check in time: {{ month.inSend }}</div>
+                            <div class="h3">Average check out time: {{ month.outSend }}</div>
+                            <div class="h3">Workdays autoclosed: {{ month.autoClose }}</div>
+                            <div class="h3">Workday wasn't 8 hours: {{ month.notFT }}</div>
+                            <div class="h3">Workday was more than 8 hours: {{ month.FT }}</div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

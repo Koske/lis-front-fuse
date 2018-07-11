@@ -1,0 +1,39 @@
+h3 {
+	text-align: center
+}
+#button1 {
+	display: inline-block;
+	margin-left: 150px;
+}
+
+#button2 {
+	display: inline-block;
+	margin-left: 5px
+}
+#button4 {
+	display: inline-block;
+	margin-left: 5px
+}
+#button3 {
+	display: inline-block;
+	margin-left: 5px
+}
+#div1{
+	display: inline-block;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  overflow: auto;
+}
+
+tr.active {
+    background-color: #009DFA;
+}
+tr {
+    cursor: pointer;
+
+}

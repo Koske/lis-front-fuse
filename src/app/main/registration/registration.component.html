@@ -1,0 +1,108 @@
+<div id="register" fxLayout="column">
+
+    <div id="register-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="register-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div class="logo">
+                <img src="../../assets/images/logos/lilly021-logo.png">
+            </div>
+
+            <div class="title">CREATE AN ACCOUNT</div>
+
+            <form name="registerForm" [formGroup]="registerForm" novalidate>
+
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="first_name">
+                    <mat-error *ngIf="registerFormErrors.first_name.required">
+                        First Name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="last_name">
+                    <mat-error *ngIf="registerFormErrors.last_name.required">
+                        Last Name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="registerFormErrors.email.required">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="!registerFormErrors.email.required && registerFormErrors.email.email">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Password" formControlName="password">
+                    <mat-error *ngIf="registerFormErrors.password.required">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Password (Confirm)" formControlName="passwordConfirm">
+                    <mat-error *ngIf="registerFormErrors.passwordConfirm.required">
+                        Password confirmation is required
+                    </mat-error>
+                    <mat-error *ngIf="registerFormErrors.passwordConfirm.passwordsNotMatch">
+                        Passwords must match
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="User Type" formControlName="user_type" required>
+                      <mat-option *ngFor="let userType of userData?.user_types" [value]="userType?.id">
+                        {{userType.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="registerFormErrors.user_type.required">
+                        User type required!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Position" formControlName="position" required>
+                      <mat-option *ngFor="let position of userData?.positions" [value]="position?.id">
+                        {{position.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="registerFormErrors.position.required">
+                        Position required!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Team" formControlName="team" required>
+                      <mat-option *ngFor="let team of userData?.teams" [value]="team?.id">
+                        {{team.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="registerFormErrors.team.required">
+                        Team required!
+                    </mat-error>
+                </mat-form-field>
+
+
+                <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT" type="button" (click)="onCreateUser()" 
+                        [disabled]="registerForm.invalid">
+                    CREATE AN ACCOUNT
+                </button>
+
+            </form>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">Already have an account?</span>
+                <a class="link" [routerLink]="['/login']">Login</a>
+            </div>
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <a class="link" [routerLink]="['/']">Home</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

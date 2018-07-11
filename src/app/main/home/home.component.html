@@ -1,0 +1,34 @@
+<div id="dashboard-project" class="page-layout simple right-sidebar" fxLayout="row">
+  <div class="center" fusePerfectScrollbar>
+    <div class="content">
+      <mat-tab-group dynamicHeight>
+        <mat-tab label="Home">
+          <div class="widget-group grey-100-bg p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom
+                         [@animateStagger]="{value:'50'}">
+            <!-- WIDGET 1 -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column"
+                         fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+                <!-- Front -->
+                <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row"
+                         fxLayoutAlign="space-between center">
+
+                    </div>
+
+                    <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                        <button mat-raised-button color="accent"  *ngIf="!checkedInOut" (click)="onCheckIn()">CheckIn</button>
+                        <button mat-raised-button color="warn" *ngIf="checkedInOut" (click)="onCheckOut()">CheckOut</button>
+                        <mat-slide-toggle [(ngModel)]="business_checked" *ngIf="checkedInOut">Business check-out</mat-slide-toggle>
+                    </div>
+                </div>
+                <!-- / Front -->
+
+            </fuse-widget>
+            <!-- / WIDGET 1 -->                  
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

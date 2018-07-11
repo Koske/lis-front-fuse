@@ -1,0 +1,71 @@
+tr.active {
+    background-color: #009DFA;
+ }
+
+.clickable{
+	overflow: hidden;
+  cursor: pointer;
+}
+ h4{
+ 	text-align: center;
+ }
+ .div2 {
+   display: inline-block;
+   margin-left: 20px
+ }
+ #div1 {
+ 	display: inline-block;
+ 	width: 30em;
+ 	float: right;
+  margin-right: 30px;
+  margin-top: 70px;
+ }
+ #button1 {
+ 	display: flex;
+    justify-content: center;
+    margin-left: 35px;
+    margin-top: 2px;
+ }
+ #button {
+ 	display: flex;
+    justify-content: center;
+    margin-left: 35px;
+ }
+ #formDiv {
+ 	display: inline-block;
+ 	position: relative;
+ 	top: 20em;
+ }
+ #table1 {
+ 	width: 30em;
+ }
+ #matic {
+ 	margin-left: 15px;
+ }
+ #progress-bar{
+ 	width: 80%
+ }
+ h6 {
+ 	margin: 0px;
+ }
+ .etape-head {
+  text-align: center;
+ }
+
+ .col-md-12 {
+ 	width: 80em;
+ }
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 74em;
+  background-color: white;
+  padding: 15px;
+  margin-left: 20px;
+}
+#button2 {
+  float: right;
+  margin-right: 30px;
+}
