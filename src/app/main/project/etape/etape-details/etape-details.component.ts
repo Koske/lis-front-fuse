@@ -36,23 +36,25 @@ export class EtapeDetailsComponent implements OnInit {
    		this.getTasks();
  	}
  	getTasks(){
+ 		this.projectService.getEtapeById(this.etapeId.id).subscribe((response: any)=> {
+ 			this.projectName = response.etape.project.name;
+ 			this.etapeName = response.etape.name;
+ 			this.etapeEnd = response.etape.end;
+ 			this.etapeStart = response.etape.start;
+ 			this.etapeDescription = response.etape.description;
+ 		});
  		this.projectService.getTaskByEtape(this.etapeId.id)
 	        .subscribe((response: any) => {
-	        	for(let el of response.tasks){
-	        		el.start = el.start.substring(0, 10)+ ' '+ el.start.substring(11, 16);
-	        		el.finished = false;
-	        		if(el.end){
-	        			el.end = el.end.substring(0, 10) + ' '+ el.end.substring(11, 16);
-	        			el.finished = true;
-	        		}
-	        	}
-	       		this.tasks = response.tasks;
-	       		this.projectName = this.tasks[0].etape.project.name;
-	       		this.etapeName = this.tasks[0].etape.name;
-	       		this.etapeEnd = this.tasks[0].etape.end.substring(0, 10);
-	       		this.etapeStart = this.tasks[0].etape.start.substring(0, 10);
-	       		this.etapeDescription = this.tasks[0].etape.description;
-	       		console.log(this.tasks);
+		        	for(let el of response.tasks){
+		        		el.start = el.start.substring(0, 10);
+		        		el.finished = false;
+		        		if(el.end){
+		        			el.end = el.end.substring(0, 10) + ' '+ el.end.substring(11, 16);
+		        			el.finished = true;
+		        		}
+		        	}
+		       		this.tasks = response.tasks;
+	       		
 	    });
  	}
     onAddTask(){
@@ -96,6 +98,16 @@ export class EtapeDetailsComponent implements OnInit {
     onEditTask(){
     	if(this.taskId!= -1)
     		this.router.navigate(['/projects', this.taskId, 'edit-task']);
+    }
+
+    onRemove(){
+    	if(this.taskId!= -1){
+    		if(confirm("Do you really want to delete this task?")){
+    			this.projectService.removeTask(this.taskId);
+    			this.taskId = -1;
+    			this.getTasks();
+    		}
+    	}
     }
 
 }

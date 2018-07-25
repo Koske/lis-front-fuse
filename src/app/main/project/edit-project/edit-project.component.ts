@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProjectService } from '../../service/project.service'
 import 'rxjs/add/operator/map';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-project',
@@ -20,8 +21,8 @@ export class EditProjectComponent implements OnInit {
     	id:0,
 		name: '',
 		description: '',
-		dateStarted: new Date(),
-		estimatedDuration: new Date()
+		dateStarted: '',
+		estimatedDuration: ''
  	}	
  	 projectId = {
   		id: 0
@@ -39,7 +40,8 @@ export class EditProjectComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
                 private projectService: ProjectService,
                 private route: ActivatedRoute,
-                private router: Router
+                private router: Router,
+                private datePipe: DatePipe
              	) { 
 		        // Reactive form errors
         this.formErrors = {
@@ -117,8 +119,9 @@ export class EditProjectComponent implements OnInit {
     onFinish(){
     	this.project.name = this.form.value.name;
 	    this.project.description = this.form.value.description;
-	    this.project.dateStarted = new Date(this.form.value.dateStarted);
-	    this.project.estimatedDuration = new Date(this.form.value.estimatedDuration);
+        this.project.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
+        this.project.estimatedDuration = this.datePipe.transform(new Date(this.form.value.estimatedDuration), 'shortDate');
+
 
 
 		this.projectService.editProjects(this.project);

@@ -102,13 +102,17 @@ export class NavbarComponent implements OnInit, OnDestroy
             .subscribe(() => {
                 this.navigation = this._fuseNavigationService.getCurrentNavigation();
                 this.userService.getCurrentUser().subscribe((response: any) => {
-
                     if(response.role.length> 1){
-                        if(response.role[0] != 'ROLE_SUPER_ADMIN')
-                            this.navigation[0].children.splice(0, 2);
+                        if(response.role[0] != 'ROLE_SUPER_ADMIN'){
+                         //   this.navigation[0].children.splice(0, 8);
+                            this.navigation[0] = [];
+                        }
                     }else{
-                        if(response.role != 'ROLE_SUPER_ADMIN')
-                            this.navigation[0].children.splice(0, 2);
+                        if(response.role != 'ROLE_SUPER_ADMIN'){
+                           // this.navigation[0].children.splice(0, 8);
+                            this.navigation[0] = [];
+                        }
+
                     }
                 });                   
             });

@@ -128,4 +128,11 @@ export class ProjectService {
       return this.httpService.post("getTaskForParticipant", 
         { projectId: projectId, userId: userId});
     }
+
+    removeTask(id: any){
+      this.httpService.post("removeTask", { id: id }).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+    }
 }

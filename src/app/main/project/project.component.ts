@@ -90,7 +90,7 @@ export class ProjectComponent implements OnInit {
     }
  
 
-    stashInfo(prId, ind){
+    stashInfo(prId){
       if(this.projectId == prId){
         this.projectId = -1;
         let table = document.getElementById(prId);

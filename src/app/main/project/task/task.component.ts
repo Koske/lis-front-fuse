@@ -7,6 +7,7 @@ import { HttpService } from "../../http/http.service";
 import { ActivatedRoute, Router} from '@angular/router';
 import { ProjectService } from "../../service/project.service";
 import { ParticipantService } from "../../service/participant.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-task',
@@ -22,7 +23,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     	  etapeId: 0,
     	  name: '',
     	  description: '',
-    	  dateStarted: new Date(),
+    	  dateStarted: '',
     	  hour: 0,
     	  participant: 0
    	}
@@ -41,7 +42,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   	            private route: ActivatedRoute,
   	            private projectService: ProjectService,
   	            private router: Router,
-  	            private participantService: ParticipantService)
+  	            private participantService: ParticipantService,
+                private datePipe: DatePipe)
     { 
   		  this.formErrors = {
             name 			   : {},
@@ -62,6 +64,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   	    this.participantService.getParticipantsForProject(this.etapeId.id)
   	        .subscribe((response: any) => {
   	         	this.participants = response.participants;
+               console.log(response);
   	    });
         this.form = this._formBuilder.group({
             name : ['', Validators.required],
@@ -110,7 +113,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     onSubmitTask(){
   	    this.task.name = this.form.value.name;
   	    this.task.description = this.form.value.description;
-  	    this.task.dateStarted = new Date(this.form.value.dateStarted);
+        this.task.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
   	    this.task.hour = this.form.value.hour;
   	    this.task.etapeId = this.etapeId.id;
   	    this.task.participant = this.form.value.participant;

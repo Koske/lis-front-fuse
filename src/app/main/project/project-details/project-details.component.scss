@@ -9,38 +9,39 @@ tr.active {
  h4{
  	text-align: center;
  }
- .div2 {
+ #div2 {
    display: inline-block;
    margin-left: 20px
  }
  #div1 {
  	display: inline-block;
- 	width: 30em;
  	float: right;
-  margin-right: 30px;
   margin-top: 70px;
  }
  #button1 {
  	display: flex;
     justify-content: center;
-    margin-left: 35px;
+    margin-left: 20%;
     margin-top: 2px;
  }
  #button {
  	display: flex;
     justify-content: center;
-    margin-left: 35px;
+    margin-left: 20%;
  }
  #formDiv {
  	display: inline-block;
  	position: relative;
  	top: 20em;
+      max-width: 150px;
+    min-width: 150px
  }
  #table1 {
  	width: 30em;
  }
  #matic {
- 	margin-left: 15px;
+ 	padding: 3px;
+  margin-left: 15px;
  }
  #progress-bar{
  	width: 80%
@@ -60,12 +61,16 @@ tr.active {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  width: 74em;
+  width: 95%;
   background-color: white;
   padding: 15px;
   margin-left: 20px;
 }
 #button2 {
   float: right;
-  margin-right: 30px;
+  margin-right: 3.2%;
+}
+
+#sel {
+  width: 7em;
 }

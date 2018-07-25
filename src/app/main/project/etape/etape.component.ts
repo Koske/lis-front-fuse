@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { ProjectService } from '../../service/project.service'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-etape',
@@ -22,8 +23,8 @@ export class EtapeComponent implements OnInit {
 	   projectId: 0,
 	   name: '',
 	   description: '',
-	   dateStarted: new Date(),
-	   dateEnded: new Date()
+	   dateStarted: '',
+	   dateEnded: ''
 	}
 
 
@@ -35,7 +36,8 @@ export class EtapeComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
              	private router: Router,
                 private projectService: ProjectService,
-                private route: ActivatedRoute
+                private route: ActivatedRoute,
+                private datePipe: DatePipe
              	) { 
 		        // Reactive form errors
         this.formErrors = {
@@ -106,8 +108,9 @@ export class EtapeComponent implements OnInit {
  onSubmitEtape(){
    this.etape.name = this.form.value.name;
    this.etape.description = this.form.value.description;
-   this.etape.dateStarted = new Date(this.form.value.dateStarted);
-   this.etape.dateEnded = new Date(this.form.value.dateEnded);
+   this.etape.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
+   this.etape.dateEnded = this.datePipe.transform(new Date(this.form.value.dateEnded), 'shortDate');
+
    this.etape.projectId = this.projectId.id;
 
    this.projectService.newEtape(this.etape);

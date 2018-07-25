@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { ProjectService } from "../../../service/project.service";
 import { ParticipantService } from "../../../service/participant.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
 	  selector: 'app-task-edit',
@@ -28,7 +29,7 @@ export class TaskEditComponent implements OnInit {
 	    description: '',
 	    hour: 0,
 	    participant: 0,
-	    start: new Date(),
+	    start: '',
 	    id: 0
  	}
 	participant: any;
@@ -46,7 +47,8 @@ export class TaskEditComponent implements OnInit {
 	            private route: ActivatedRoute,
 	            private projectService: ProjectService,
 	            private router: Router,
-	            private participantService: ParticipantService) { 
+	            private participantService: ParticipantService,
+                private datePipe: DatePipe) { 
 				this.formErrors = {
 		            name 			   : {},
 		            description  	   : {},
@@ -132,7 +134,7 @@ export class TaskEditComponent implements OnInit {
     onSubmit(){
   	    this.taskSend.name = this.form.value.name;
   	    this.taskSend.description = this.form.value.description;
-  	    this.taskSend.start = new Date(this.form.value.start);
+        this.taskSend.start = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
   	    this.taskSend.hour = this.form.value.hour;
   	    this.taskSend.participant = this.form.value.participant;
   	    this.taskSend.id = this.taskId.id;

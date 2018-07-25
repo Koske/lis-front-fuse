@@ -65,15 +65,29 @@ export class EditUserComponent implements OnInit {
 
 	    this.userService.getUserById(this.userId).subscribe(r=> {
 	    	this.userForEdit = r['user'];
-		   	this.form = this._formBuilder.group({
 
-	            firstName : [this.userForEdit.first_name, Validators.required],
-	            lastName  : [this.userForEdit.last_name, Validators.required],
-	            email   : [this.userForEdit.email, Validators.required],
-	            user_type  : [this.userForEdit.user_type.id, Validators.required],
-	            position  : [this.userForEdit.position.id, Validators.required],
-	            team  : [this.userForEdit.team.id, Validators.required],
-	        });
+            if(this.userForEdit.team == null){
+               this.form = this._formBuilder.group({
+
+                firstName : [this.userForEdit.first_name, Validators.required],
+                lastName  : [this.userForEdit.last_name, Validators.required],
+                email   : [this.userForEdit.email, Validators.required],
+                user_type  : [this.userForEdit.user_type.id, Validators.required],
+                position  : [this.userForEdit.position.id, Validators.required],
+                team  : ['', Validators.required],
+            });
+            }else{
+               this.form = this._formBuilder.group({
+
+                firstName : [this.userForEdit.first_name, Validators.required],
+                lastName  : [this.userForEdit.last_name, Validators.required],
+                email   : [this.userForEdit.email, Validators.required],
+                user_type  : [this.userForEdit.user_type.id, Validators.required],
+                position  : [this.userForEdit.position.id, Validators.required],
+                team  : [this.userForEdit.team.id, Validators.required],
+            });
+            }
+
 
 	        this.form.valueChanges
 	            .pipe(takeUntil(this._unsubscribeAll))

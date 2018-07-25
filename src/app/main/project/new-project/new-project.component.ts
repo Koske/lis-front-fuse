@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Router} from '@angular/router';
 import { ProjectService } from '../../service/project.service'
 import { UserService } from '../../service/user.service'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-project',
@@ -19,8 +20,8 @@ export class NewProjectComponent implements OnInit {
     project = {
 		name: '',
 		description: '',
-		dateStarted: new Date(),
-		estimatedDuration: new Date()
+		dateStarted: '',
+		estimatedDuration: ''
  	}	
     user: any;
 
@@ -33,7 +34,8 @@ export class NewProjectComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
              	private router: Router,
                 private projectService: ProjectService,
-                private userService: UserService
+                private userService: UserService,
+                private datePipe: DatePipe
              	) { 
 		        // Reactive form errors
         this.formErrors = {
@@ -104,8 +106,8 @@ export class NewProjectComponent implements OnInit {
     onFinish(){
     	this.project.name = this.form.value.name;
 	    this.project.description = this.form.value.description;
-	    this.project.dateStarted = new Date(this.form.value.dateStarted);
-	    this.project.estimatedDuration = new Date(this.form.value.estimatedDuration);
+        this.project.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
+        this.project.estimatedDuration = this.datePipe.transform(new Date(this.form.value.estimatedDuration), 'shortDate');
 
 
 		this.projectService.newProject(this.project, this.user);

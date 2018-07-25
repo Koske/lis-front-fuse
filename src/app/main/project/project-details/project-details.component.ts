@@ -50,7 +50,6 @@ export class ProjectDetailsComponent implements OnInit {
             for(let el of response){
               if(el.id == this.projectId.id){
                 this.projectName = el.name;
-                this.checkDeadline(el.start_date, el.estimated_duration);
               }
             }
         });
@@ -198,19 +197,6 @@ export class ProjectDetailsComponent implements OnInit {
         }
       }
         console.log(this.etap);
-    }
-
-    checkDeadline(start, end){
-      let eEnd = +new Date(end.substring(0, 10));
-
-      let currentDate = +new Date();
-
-      let difference = eEnd - currentDate;
-      if(difference < 0){
-        this.deadlineNear = true;
-        this.dateCurrent = new Date();
-        this.dateEstimated = new Date(end.substring(0, 10));
-      }
     }
 
     onAddEtape(){

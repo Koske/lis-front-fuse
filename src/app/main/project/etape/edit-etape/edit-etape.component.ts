@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProjectService } from '../../../service/project.service'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-etape',
@@ -22,8 +23,8 @@ export class EditEtapeComponent implements OnInit {
 	    id: 0,
 	    name: '',
 	    description: '',
-	    dateStarted: new Date(),
-		dateEnded: new Date()
+	    dateStarted: '',
+		dateEnded: ''
 	}
  	ai: any;
 
@@ -38,7 +39,8 @@ export class EditEtapeComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
                 private projectService: ProjectService,
                 private route: ActivatedRoute,
-                private router: Router
+                private router: Router,
+                private datePipe: DatePipe
              	) { 
 		        // Reactive form errors
         this.formErrors = {
@@ -60,20 +62,7 @@ export class EditEtapeComponent implements OnInit {
 		 id: this.route.snapshot.params['id'],
 		};
 	   this.etape.id = this.etapeId.id;
-	   // this.projectService.getProjects()
-	   //   .subscribe((response: any) => {
-	   //     for(let el of response){
-	   //       if(el.id == this.projectId.id){
-	   //         this.ai = el;
-	   //         let strStart = this.ai.start_date;
-	   //         this.ress = strStart.slice(0, 10);
-			 //   let strEnd = this.ai.estimated_duration;
-	   //         this.rese = strEnd.slice(0, 10);
-	           
-	   //       }
-	   //       }
 
-	   //   });
 	   this.projectService.getEtapeById(this.etapeId.id).subscribe((r:any )=> {
 	   	console.log(r);
 	   	this.form = this._formBuilder.group({
@@ -130,10 +119,11 @@ export class EditEtapeComponent implements OnInit {
   	onSubmitEtape(){
 	  	this.etape.name = this.form.value.name;
 	  	this.etape.description = this.form.value.description;
-	  	this.etape.dateStarted = this.form.value.dateStarted;
-	  	this.etape.dateEnded = this.form.value.dateEnded;
+      this.etape.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
+      this.etape.dateEnded = this.datePipe.transform(new Date(this.form.value.dateEnded), 'shortDate');
 	  	this.etape.id = this.etapeId.id;
-		this.projectService.editEtape(this.etape);
+      
+		  this.projectService.editEtape(this.etape);
 	  	this.router.navigate(['/projects', this.etapeId.id, 'etape-details']);
   	}
 

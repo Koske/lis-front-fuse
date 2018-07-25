@@ -1,0 +1,34 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+}
+
+tr{
+  cursor: pointer;
+}
+tr.active {
+    background-color: #009DFA;
+}
+mat-checkbox{
+  margin-left: 23px;
+}
+#div1 {
+  background-color: white;
+}
+.projectButtons {
+  float: right;
+  margin-left: 5px;
+}
+
+.mat-header-cell{
+    text-align: center; 
+    vertical-align: middle;
+}
+td{
+    text-align: center; 
+    vertical-align: middle;
+}

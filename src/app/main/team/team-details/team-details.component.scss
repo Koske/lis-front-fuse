@@ -1,0 +1,36 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+}
+.mat-table {
+  border: 0px;
+  overflow: auto;
+}
+tr{
+  cursor: pointer;
+}
+tr.active {
+    background-color: #009DFA;
+}
+mat-checkbox{
+  margin-left: 23px;
+}
+#div1 {
+  background-color: white;
+  margin-top: 2px;
+}
+.projectButtons {
+  float: right;
+  margin-left: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}

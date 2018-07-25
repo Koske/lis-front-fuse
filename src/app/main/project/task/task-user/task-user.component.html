@@ -1,3 +1,67 @@
-<p>
-  task-user works!
-</p>
+<div id="academy-courses" class="page-layout simple">
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="hero-text">
+            <h1 class="name" [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                Tasks for Project {{ projectName }}
+            </h1>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <div fxLayout="column" fxLayoutAlign="center">
+
+
+            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+                <div class="course" *ngFor="let task of tasks" fxFlex="100" fxFlex.gt-xs="50"
+                     fxFlex.gt-sm="33"  [@animate]="{value:'*',params:{y:'100%'}}"
+
+                     >
+
+                    <div class="course-content" fxLayout="column" >
+
+                        <div class="header" fxLayout="row" fxLayoutAlign="center center"
+                            
+                            >
+
+                            <div class="category" fxFlex >
+                                {{task.name}}
+                            </div>
+                            
+                            <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                                <mat-icon class="length-icon s-20">access_time</mat-icon>
+                                <div class="min">{{task.hour}} h</div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                            <div class="h3">{{ task.description }}</div>
+                        </div>
+                        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                            <button [disabled]="task.end" mat-button color="accent" (click)="onFinish(task.id)">
+                                Finish
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

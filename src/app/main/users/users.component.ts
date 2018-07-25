@@ -111,7 +111,7 @@ export class UsersComponent implements OnInit {
 
   onDelete() {
     if(this.userId != -1){
-      if(confirm("Are you sure to delete ")) {
+      if(confirm("Are you sure to delete this user?")) {
         this.userService.deleteUser(this.userId);
         this.userId = -1;
 

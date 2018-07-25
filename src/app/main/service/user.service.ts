@@ -70,12 +70,14 @@ export class UserService {
         console.log(res);
     });
   }
-  edit(user: any) {
+    edit(user: any) {
 
+        this.httpService.post('user/update', user, true).subscribe(res => {
+            console.log(res);
+        });
+    }
 
-    this.httpService.post('user/update', user, true).subscribe(res => {
-        console.log(res);
-    });
-
+    getAllUsersSimple(){
+        return this.httpService.get("getAllUsers");
     }
 }
