@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ProjectService } from '../../service/project.service'
+import { ProjectService } from '../../service/project.service';
+import { ProjectTypeService } from '../../service/project-type.service';
 import 'rxjs/add/operator/map';
 import { DatePipe } from '@angular/common';
 
@@ -20,6 +21,7 @@ export class EditProjectComponent implements OnInit {
     project = {
     	id:0,
 		name: '',
+        projectType: 0,
 		description: '',
 		dateStarted: '',
 		estimatedDuration: ''
@@ -31,6 +33,7 @@ export class EditProjectComponent implements OnInit {
 
  	ress: any;
  	rese: any;
+     projectTypes: any;
 
     /**
      * Constructor
@@ -39,6 +42,7 @@ export class EditProjectComponent implements OnInit {
      */
 	constructor(private _formBuilder: FormBuilder,
                 private projectService: ProjectService,
+                private projectTypeService: ProjectTypeService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private datePipe: DatePipe
@@ -46,7 +50,8 @@ export class EditProjectComponent implements OnInit {
 		        // Reactive form errors
         this.formErrors = {
             name 			   : {},
-            description  	   : {},
+            description         : {},
+            projectType  	   : {},
             dateStarted   	   : {},
             estimatedDuration  : {}
         };
@@ -57,7 +62,9 @@ export class EditProjectComponent implements OnInit {
 
 	ngOnInit(): void
 	{
-
+        this.projectTypeService.getProjectTypes().subscribe((response: any)=> {
+            this.projectTypes = response.projectTypes;
+        });
 
 		this.projectId = {
 		 id: this.route.snapshot.params['id'],
@@ -69,6 +76,7 @@ export class EditProjectComponent implements OnInit {
 
             name : [r.project.name, Validators.required],
             description  : [r.project.description, Validators.required],
+            projectType  : [r.project.project_type.id, Validators.required],
             dateStarted   : [r.start, Validators.required],
             estimatedDuration  : [r.end, Validators.required]
         });
@@ -118,7 +126,8 @@ export class EditProjectComponent implements OnInit {
 
     onFinish(){
     	this.project.name = this.form.value.name;
-	    this.project.description = this.form.value.description;
+        this.project.description = this.form.value.description;
+	    this.project.projectType = this.form.value.projectType;
         this.project.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
         this.project.estimatedDuration = this.datePipe.transform(new Date(this.form.value.estimatedDuration), 'shortDate');
 

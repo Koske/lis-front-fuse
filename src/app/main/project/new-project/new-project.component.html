@@ -47,6 +47,18 @@
                     </mat-form-field>
                 </div>
                 <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                     <mat-form-field>
+                        <mat-select placeholder="Project type" formControlName="projectType" required>
+                          <mat-option *ngFor="let p of projectTypes" value="{{p.id}}">
+                            {{ p.name }} 
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formErrors.projectType.required">
+                            Project Type required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
                     <mat-form-field fxFlex="100">
 						<input matInput [matDatepicker]="dateStarted" placeholder="Date started" formControlName="dateStarted" required>

@@ -16,7 +16,7 @@ export class ProjectComponent implements OnInit {
     projectsIter :any[] = [];
     projects :any[];
     searchPages: any;
-    displayedColumns = ['name', 'description', 'start_date', 'estimated_duration', 'finished'];
+    displayedColumns = ['name', 'description', 'projectType', 'start_date', 'estimated_duration', 'finished'];
     id: number;
     pages: any[] = [];
     totalPages = {

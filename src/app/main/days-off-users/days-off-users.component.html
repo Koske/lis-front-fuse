@@ -1,0 +1,17 @@
+<div class="example-container mat-elevation-z8">
+    <table mat-table #table [dataSource]="daysOff">
+
+	    <ng-container matColumnDef="fullName">
+	      <th mat-header-cell *matHeaderCellDef> Full Name </th>
+	      <td mat-cell *matCellDef="let element"> {{element.user.first_name}} {{element.user.last_name}} </td>
+	    </ng-container>
+
+		<ng-container matColumnDef="daysOff">
+	      <th mat-header-cell *matHeaderCellDef> Days Off this year </th>
+	      <td mat-cell *matCellDef="let element"> {{element.days_off}} </td>
+	    </ng-container>
+
+	    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	    <tr mat-row *matRowDef="let row; columns: displayedColumns;" id="{{row.user.id}}" (click)="calendar(row.user.id)"></tr>
+    </table>
+</div>

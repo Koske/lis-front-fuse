@@ -7,36 +7,30 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({
-  selector: 'app-days-off',
-  templateUrl: './days-off.component.html',
-  styleUrls: ['./days-off.component.scss']
+  selector: 'app-days-off-users',
+  templateUrl: './days-off-users.component.html',
+  styleUrls: ['./days-off-users.component.scss']
 })
-export class DaysOffComponent implements OnInit {
+export class DaysOffUsersComponent implements OnInit {
 
 	daysOff: any;
 	daysOffId: number= -1;
-    displayedColumns = ['fullName', 'start', 'end', 'status'];
+    displayedColumns = ['fullName', 'daysOff'];
     userId: number = -1;
+    clicked: boolean = false;
   	constructor(private daysOffService: DaysOffService,
                 private userService: UserService,
                 private router: Router) { }
 
  	ngOnInit() {
-     this.userService.getCurrentUser().subscribe((response: any)=> {
-       this.userId = response.user.id;
-       this.getDaysOff(this.userId);
-     });
+ 		this.getDaysOffStats();
  		
   	}
 
-  	getDaysOff(id: any){
-  		this.daysOffService.getDaysOffUser(id).subscribe((response: any)=> {
-  			this.daysOff = response.dayOff;
-  			this.daysOff.forEach((r)=> {
-  				r.start = r.start.substring(0, 10);
-  				r.end = r.end.substring(0, 10);
-  			})
-  		});
+  	getDaysOffStats(){
+	     this.daysOffService.getDaysOffStats().subscribe((response: any)=> {
+	     	this.daysOff = response.daysOffStats;
+	     });
   	}
 
     stashInfo(dysOffId){
@@ -62,21 +56,13 @@ export class DaysOffComponent implements OnInit {
 
     }
 
-    onRemove(){
-    	if(this.daysOffId){
-    		if(confirm('Are you sure you want to delete these days?'))
-    			this.daysOffService.removeDaysOff(this.daysOffId);
-    			this.daysOffId= -1;
-    			this.getDaysOff(this.userId);
-    	}
-
-    }
-
-    onEdit(){
-      if(this.daysOffId!= -1){
-        this.router.navigate(['edit-days-off', this.daysOffId]);
+    calendar(id){
+      if(this.clicked){
+        this.router.navigate(['days-off-per']);
+      }else{
+        this.router.navigate(['days-off-per', id, 'calendar']);
       }
+        this.clicked = !this.clicked;
     }
-
 
 }

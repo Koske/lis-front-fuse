@@ -20,11 +20,11 @@ export class NewDaysOffComponent implements OnInit {
     daysOff = {
 		start: '',
 		end: '',
-		userId: 0
+    userId: 0
  	}	
     users: any;
     start: string = '';
-
+    currentUser: any;
 
     /**
      * Constructor
@@ -40,8 +40,7 @@ export class NewDaysOffComponent implements OnInit {
 		        // Reactive form errors
         this.formErrors = {
             start  	   : {},
-            end  	   : {},
-            user   	   : {}
+            end       : {}
         };
 
 		this._unsubscribeAll = new Subject();
@@ -53,7 +52,7 @@ export class NewDaysOffComponent implements OnInit {
 		// Reactive Form
         this.form = this._formBuilder.group({
 
-            user  : ['', Validators.required],
+
             start   : ['', Validators.required],
             end   : ['', Validators.required]
         });
@@ -66,6 +65,11 @@ export class NewDaysOffComponent implements OnInit {
   		this.userService.getAllUsersSimple().subscribe((response: any)=> {
   			this.users = response.users;
   		});
+
+      this.userService.getCurrentUser().subscribe((response:any) => {
+        this.daysOff.userId =response.user.id;
+
+      });
 
 	}
 
@@ -102,7 +106,6 @@ export class NewDaysOffComponent implements OnInit {
     }
 
     onFinish(){
-	    this.daysOff.userId = this.form.value.user;
       
       this.daysOff.start = this.datePipe.transform(new Date(this.form.value.start), 'shortDate');
       this.daysOff.end = this.datePipe.transform(new Date(this.form.value.end), 'shortDate');

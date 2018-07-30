@@ -1,0 +1,11 @@
+<mat-dialog-content [formGroup]="form">
+	<h3>Reason for declining</h3>
+    <mat-form-field>
+        <input matInput type="text" formControlName="reason">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary"(click)="save()" [disabled]="!form.valid">Submit</button>
+</mat-dialog-actions>

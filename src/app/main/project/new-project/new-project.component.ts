@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router} from '@angular/router';
 import { ProjectService } from '../../service/project.service'
+import { ProjectTypeService } from '../../service/project-type.service'
 import { UserService } from '../../service/user.service'
 import { DatePipe } from '@angular/common';
 
@@ -20,10 +21,12 @@ export class NewProjectComponent implements OnInit {
     project = {
 		name: '',
 		description: '',
+        projectType: 0,
 		dateStarted: '',
 		estimatedDuration: ''
  	}	
     user: any;
+    projectTypes: any;
 
 
     /**
@@ -34,13 +37,15 @@ export class NewProjectComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
              	private router: Router,
                 private projectService: ProjectService,
+                private projectTypeService: ProjectTypeService,
                 private userService: UserService,
                 private datePipe: DatePipe
              	) { 
 		        // Reactive form errors
         this.formErrors = {
             name 			   : {},
-            description  	   : {},
+            description         : {},
+            projectType  	   : {},
             dateStarted   	   : {},
             estimatedDuration  : {}
         };
@@ -51,11 +56,15 @@ export class NewProjectComponent implements OnInit {
 
 	ngOnInit(): void
 	{
+        this.projectTypeService.getProjectTypes().subscribe((response: any)=> {
+            this.projectTypes = response.projectTypes;
+        });
 		// Reactive Form
         this.form = this._formBuilder.group({
 
             name : ['', Validators.required],
             description  : ['', Validators.required],
+            projectType  : ['', Validators.required],
             dateStarted   : ['', Validators.required],
             estimatedDuration  : ['', Validators.required]
         });
@@ -105,7 +114,8 @@ export class NewProjectComponent implements OnInit {
 
     onFinish(){
     	this.project.name = this.form.value.name;
-	    this.project.description = this.form.value.description;
+        this.project.description = this.form.value.description;
+	    this.project.projectType = this.form.value.projectType;
         this.project.dateStarted = this.datePipe.transform(new Date(this.form.value.dateStarted), 'shortDate');
         this.project.estimatedDuration = this.datePipe.transform(new Date(this.form.value.estimatedDuration), 'shortDate');
 

@@ -20,6 +20,10 @@ export class DaysOffService {
   		return this.httpService.get("getDaysOff");
   	}
 
+    getDaysOffUser(id: any){
+      return this.httpService.post("getDaysOffUser", { id: id });
+    }
+
     removeDaysOff(id: any){
       this.httpService.post("removeDaysOff", { id: id }).subscribe(
             (response) => console.log(response),
@@ -36,5 +40,20 @@ export class DaysOffService {
 
     getDayOffById(id: any){
       return this.httpService.post("getDayOffById", { id: id });
+    }
+
+    decisionDaysOff(decision: any){
+      this.httpService.post("decideDaysOff", decision).subscribe(
+            (response) => console.log(response),
+            (error) => console.log(error)
+        );
+    }
+
+    getDaysOffStats(){
+      return this.httpService.get("getDaysOffStats");
+    }
+
+    getDaysOffStatsByUser(id){
+      return this.httpService.post("getDaysOffStatsByUser", { id: id });
     }
 }

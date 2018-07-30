@@ -164,5 +164,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
 
               console.log(this.presenceId, this.type, this.realId);
           }
-        );}
+        );
+    }
 }

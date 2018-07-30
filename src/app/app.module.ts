@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material';
 import { MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { DatePipe } from '@angular/common';
 
@@ -25,7 +26,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule, FuseThemeOptionsModule, FuseWidgetModule } from '@fuse/components';
 
 import { fuseConfig } from 'app/fuse-config';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { HomeComponent } from './main/home/home.component';
@@ -89,6 +90,9 @@ import { ParticipantTypeComponent } from './main/project/participant-type/partic
 import { NewParticipantTypeComponent } from './main/project/participant-type/new-participant-type/new-participant-type.component';
 import { PositionsComponent } from './main/positions/positions.component';
 import { NewPositionsComponent } from './main/positions/new-positions/new-positions.component';
+import { DaysOffRequestComponent } from './main/days-off-request/days-off-request.component';
+import { DialogDeclinedDayOffComponent } from './main/dialog-declined-day-off/dialog-declined-day-off.component';
+import { DaysOffUsersComponent } from './main/days-off-users/days-off-users.component';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
@@ -133,7 +137,12 @@ const appRoutes: Routes = [
     { path: 'new-user-type', component: NewUserTypeComponent },
     { path: 'user-types', component: UserTypeComponent },
     { path: 'positions', component: PositionsComponent },
-    { path: 'new-position', component: NewPositionsComponent }
+    { path: 'new-position', component: NewPositionsComponent },
+    { path: 'days-off-requests', component: DaysOffRequestComponent },
+    { path: 'days-off-per', component: DaysOffUsersComponent}
+    // , children: [
+    //     { path: ':id/calendar', component: DatepickerRangeComponent }
+    // ] }
 
 ];
 
@@ -184,7 +193,10 @@ const appRoutes: Routes = [
         ParticipantTypeComponent,
         NewParticipantTypeComponent,
         PositionsComponent,
-        NewPositionsComponent
+        NewPositionsComponent,
+        DaysOffRequestComponent,
+        DialogDeclinedDayOffComponent,
+        DaysOffUsersComponent
     ],
     imports     : [
         BrowserModule,
@@ -211,6 +223,7 @@ const appRoutes: Routes = [
         MatDialogModule,
         MatSlideToggleModule,
         MatProgressBarModule,
+        MatTooltipModule,
 
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
@@ -221,7 +234,8 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot()
     ],
     providers: [
               HttpService,
@@ -245,7 +259,7 @@ const appRoutes: Routes = [
     bootstrap   : [
         AppComponent
     ],
-    entryComponents: [DialogComponent]
+    entryComponents: [DialogComponent, DialogDeclinedDayOffComponent]
 })
 export class AppModule
 {

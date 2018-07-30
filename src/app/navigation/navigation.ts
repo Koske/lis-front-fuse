@@ -182,28 +182,6 @@ export const navigation: FuseNavigation[] = [
                 ]
             },
             {
-                id       : 'daysOff',
-                title    : 'Days Off',
-                type     : 'collapsable',
-                icon     : 'today',
-                children : [
-                    {
-                        id   : 'addDaysOff',
-                        title: 'Add Days Off',
-                        icon : 'add',
-                        type : 'item',
-                        url  : 'new-days-off'
-                    },
-                    {
-                        id   : 'allDaysOff',
-                        title: 'All Days Off',
-                        icon: 'format_list_bulleted',
-                        type : 'item',
-                        url  : 'days-off'
-                    }
-                ]
-            },
-            {
                 id       : 'positions',
                 title    : 'Positions',
                 type     : 'collapsable',
@@ -224,7 +202,44 @@ export const navigation: FuseNavigation[] = [
                         url  : 'positions'
                     }
                 ]
+            },
+            {
+                id       : 'daysOff',
+                title    : 'Days Off',
+                type     : 'collapsable',
+                icon     : 'today',
+                children : [
+                    {
+                        id   : 'addDaysOff',
+                        title: 'Add Days Off',
+                        icon : 'add',
+                        type : 'item',
+                        url  : 'new-days-off'
+                    },
+                    {
+                        id   : 'allDaysOff',
+                        title: 'Days Off',
+                        icon: 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'days-off'
+                    },
+                    {
+                        id   : 'daysOffRequests',
+                        title: 'Days Off Requests',
+                        icon: 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'days-off-requests'
+                    },
+                    {
+                        id   : 'daysOffUser',
+                        title: 'Days Off Users',
+                        icon: 'timer_off',
+                        type : 'item',
+                        url  : 'days-off-per'
+                    }
+                ]
             }
         ]
+
     }
 ];

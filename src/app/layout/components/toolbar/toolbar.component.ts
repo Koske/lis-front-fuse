@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { AuthService } from '../../../main/auth/auth.service';
 import { UserService } from '../../../main/service/user.service';
+import { DaysOffService } from '../../../main/service/days-off.service';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
@@ -29,6 +30,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
     showLoadingBar: boolean;
     userStatusOptions: any[];
     user: any;
+    pendingCounter: number = 0;
+    show: boolean = false;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -48,6 +51,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _translateService: TranslateService,
         private authService: AuthService,
         private userService: UserService,
+        private daysOffService: DaysOffService,
         private route: ActivatedRoute,
         private router: Router
     )
@@ -107,8 +111,20 @@ export class ToolbarComponent implements OnInit, OnDestroy
     /**
      * On init
      */
+     getPendings(){
+        this.daysOffService.getDaysOff().subscribe((response: any)=> {
+            this.pendingCounter =0;
+            response.daysOff.forEach((r)=> {
+                if(r.status == 'Pending')
+                    this.pendingCounter++;
+            });
+        });
+     }
     ngOnInit(): void
     {
+          setInterval( () => {
+            this.getPendings();
+          },10000);
         
         // Subscribe to the router events to show/hide the loading bar
         this._router.events
@@ -141,6 +157,11 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this.selectedLanguage = _.find(this.languages, {'id': this._translateService.currentLang});
         this.userService.getCurrentUser().subscribe((response:any) => {
             this.user =response.user;
+            if(response.role[0] == 'ROLE_SUPER_ADMIN'){
+                this.show = true;
+            }else{
+                this.show = false;
+            }
 
         });
     }
@@ -203,5 +224,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     onMyProjects(){
         this.router.navigate(['/project-user', this.user.id]);
+    }
+
+    onNotifications(){
+        this.router.navigate(['days-off-requests']);
     }
 }

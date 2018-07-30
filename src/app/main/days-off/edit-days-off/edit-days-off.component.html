@@ -25,18 +25,6 @@
                   *ngIf="form"
                   >
 
-                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                     <mat-form-field>
-                        <mat-select placeholder="Users" formControlName="user" required>
-                          <mat-option *ngFor="let user of users" [value]="user.id">
-                            {{ user.first_name }}  {{ user.last_name }}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formErrors.user.required">
-                            User required!
-                        </mat-error>
-                    </mat-form-field>
-                </div>
 
                 <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
