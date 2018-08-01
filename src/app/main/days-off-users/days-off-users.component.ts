@@ -5,6 +5,9 @@ import { UserService } from '../service/user.service';
 import { DaysOffService } from '../service/days-off.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
+import {NgModule}     from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule}    from '@angular/forms'
 
 @Component({
   selector: 'app-days-off-users',
@@ -13,8 +16,9 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class DaysOffUsersComponent implements OnInit {
 
-	daysOff: any;
+	daysOff: any ;
 	daysOffId: number= -1;
+  dates: any;
     displayedColumns = ['fullName', 'daysOff'];
     userId: number = -1;
     clicked: boolean = false;
@@ -24,7 +28,6 @@ export class DaysOffUsersComponent implements OnInit {
 
  	ngOnInit() {
  		this.getDaysOffStats();
- 		
   	}
 
   	getDaysOffStats(){
@@ -56,11 +59,20 @@ export class DaysOffUsersComponent implements OnInit {
 
     }
 
-    calendar(id){
+    calendar(id, i){
       if(this.clicked){
         this.router.navigate(['days-off-per']);
+        this.getDaysOffStats();
       }else{
         this.router.navigate(['days-off-per', id, 'calendar']);
+        console.log(this.daysOff);
+        let temp = this.daysOff[i];
+       // this.daysOff.splice(1);
+        this.daysOff = [];
+        this.daysOff.push(temp);
+        console.log(this.daysOff);
+
+        console.log(i);
       }
         this.clicked = !this.clicked;
     }

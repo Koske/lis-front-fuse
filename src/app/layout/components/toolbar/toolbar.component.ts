@@ -122,9 +122,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
      }
     ngOnInit(): void
     {
-          setInterval( () => {
-            this.getPendings();
-          },10000);
+          // setInterval( () => {
+          //   this.getPendings();
+          // },10000);
         
         // Subscribe to the router events to show/hide the loading bar
         this._router.events

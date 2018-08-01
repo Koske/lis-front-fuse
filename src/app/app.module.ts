@@ -16,6 +16,8 @@ import { MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorM
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { DatePipe } from '@angular/common';
 
@@ -93,6 +95,8 @@ import { NewPositionsComponent } from './main/positions/new-positions/new-positi
 import { DaysOffRequestComponent } from './main/days-off-request/days-off-request.component';
 import { DialogDeclinedDayOffComponent } from './main/dialog-declined-day-off/dialog-declined-day-off.component';
 import { DaysOffUsersComponent } from './main/days-off-users/days-off-users.component';
+import { CalendarModule } from './main/calendar/calendar.module';
+import { CalendarComponent } from './main/calendar/calendar.component';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
@@ -139,10 +143,10 @@ const appRoutes: Routes = [
     { path: 'positions', component: PositionsComponent },
     { path: 'new-position', component: NewPositionsComponent },
     { path: 'days-off-requests', component: DaysOffRequestComponent },
-    { path: 'days-off-per', component: DaysOffUsersComponent}
-    // , children: [
-    //     { path: ':id/calendar', component: DatepickerRangeComponent }
-    // ] }
+    { path: 'days-off-per', component: DaysOffUsersComponent
+    , children: [
+        { path: ':id/calendar', component: CalendarComponent }
+    ] }
 
 ];
 
@@ -202,6 +206,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        CalendarModule,
         RouterModule.forRoot(appRoutes),
 
         TranslateModule.forRoot(),
@@ -224,6 +229,8 @@ const appRoutes: Routes = [
         MatSlideToggleModule,
         MatProgressBarModule,
         MatTooltipModule,
+        MatToolbarModule,
+        ColorPickerModule,
 
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
@@ -236,6 +243,7 @@ const appRoutes: Routes = [
         LayoutModule,
         FormsModule,
         NgbModule.forRoot()
+
     ],
     providers: [
               HttpService,

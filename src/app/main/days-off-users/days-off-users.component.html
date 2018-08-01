@@ -12,6 +12,8 @@
 	    </ng-container>
 
 	    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-	    <tr mat-row *matRowDef="let row; columns: displayedColumns;" id="{{row.user.id}}" (click)="calendar(row.user.id)"></tr>
+	    <tr mat-row *matRowDef="let row; columns: displayedColumns;let i= index;" id="{{row.user.id}}" (click)="calendar(row.user.id, i)"></tr>
+
     </table>
+	<router-outlet></router-outlet>
 </div>
