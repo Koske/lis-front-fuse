@@ -7,9 +7,7 @@
   padding: 15px;
 }
 
-tr{
-  cursor: pointer;
-}
+
 tr.active {
     background-color: #009DFA;
 }
@@ -33,6 +31,11 @@ tr.mat-footer-row {
 td{
     text-align: center; 
     vertical-align: middle;
+}
+
+.tdPointer {
+    cursor: pointer;
+
 }
 
 

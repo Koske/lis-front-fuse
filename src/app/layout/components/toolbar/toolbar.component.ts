@@ -223,7 +223,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     }
 
     onMyProjects(){
-        this.router.navigate(['/project-user', this.user.id]);
+        this.router.navigate(['/user-assigned-pr', this.user.id]);
     }
 
     onNotifications(){

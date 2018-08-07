@@ -23,7 +23,6 @@
                 <div class="title">
                     {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
                 </div>
-
                 <button mat-icon-button class="arrow"
                         mwlCalendarNextView
                         [view]="view"
@@ -48,7 +47,6 @@
                 [events]="events"
                 [refresh]="refresh"
                 [activeDayIsOpen]="activeDayIsOpen"
-                (eventClicked)="editEvent('edit', $event.event)"
                 (beforeViewRender)="beforeMonthViewRender($event)">
             </mwl-calendar-month-view>
             <mwl-calendar-week-view

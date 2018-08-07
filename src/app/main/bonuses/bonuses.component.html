@@ -8,31 +8,31 @@
 
 	    <ng-container matColumnDef="fullName">
 	      <th mat-header-cell *matHeaderCellDef> Full Name </th>
-	      <td mat-cell *matCellDef="let element"> {{element.user.first_name}} {{element.user.last_name}} </td>
-	      <td mat-footer-cell *matFooterCellDef> Total </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.user.first_name}} {{element.user.last_name}} </td>
+	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="value">
 	      <th mat-header-cell *matHeaderCellDef> Value </th>
-	      <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.value}} </td>
 	      <td mat-footer-cell *matFooterCellDef> {{ totalBonuses }} </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="date">
 	      <th mat-header-cell *matHeaderCellDef> Date Valid </th>
-	      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.date}} </td>
 	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="date_created">
 	      <th mat-header-cell *matHeaderCellDef> Date Created </th>
-	      <td mat-cell *matCellDef="let element"> {{element.date_created}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.date_created}} </td>
 	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="date_updated">
 	      <th mat-header-cell *matHeaderCellDef> Date Updated </th>
-	      <td mat-cell *matCellDef="let element"> {{element.date_updated}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.date_updated}} </td>
 	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 

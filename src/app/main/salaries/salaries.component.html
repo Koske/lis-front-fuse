@@ -7,31 +7,31 @@
 
 	    <ng-container matColumnDef="first_name">
 	      <th mat-header-cell *matHeaderCellDef> First Name </th>
-	      <td mat-cell *matCellDef="let element"> {{element.user.first_name}} </td>
-	      <td mat-footer-cell *matFooterCellDef> Total </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.user.first_name}} </td>
+	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="last_name">
 	      <th mat-header-cell *matHeaderCellDef> Last Name </th>
-	      <td mat-cell *matCellDef="let element"> {{element.user.last_name}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.user.last_name}} </td>
 	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="bruto">
 	      <th mat-header-cell *matHeaderCellDef> Bruto </th>
-	      <td mat-cell *matCellDef="let element"> {{element.bruto}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.bruto}} </td>
           <td mat-footer-cell *matFooterCellDef> {{ brutoTotal}} </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="neto">
 	      <th mat-header-cell *matHeaderCellDef> Neto </th>
-	      <td mat-cell *matCellDef="let element"> {{element.neto}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.neto}} </td>
     	  <td mat-footer-cell *matFooterCellDef> {{ netoTotal}} </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="date_valid">
 	      <th mat-header-cell *matHeaderCellDef> Date valid </th>
-	      <td mat-cell *matCellDef="let element"> {{element.date_valid}} </td>
+	      <td class="tdPointer" mat-cell *matCellDef="let element"> {{element.date_valid}} </td>
 	      <td mat-footer-cell *matFooterCellDef> </td>
 	    </ng-container>
 

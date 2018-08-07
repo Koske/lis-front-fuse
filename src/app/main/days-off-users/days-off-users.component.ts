@@ -8,15 +8,18 @@ import { MatTableDataSource } from '@angular/material';
 import {NgModule}     from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}    from '@angular/forms'
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-days-off-users',
   templateUrl: './days-off-users.component.html',
   styleUrls: ['./days-off-users.component.scss']
 })
-export class DaysOffUsersComponent implements OnInit {
+export class DaysOffUsersComponent implements OnInit  {
+
 
 	daysOff: any ;
+  currentDate: any;
 	daysOffId: number= -1;
   dates: any;
     displayedColumns = ['fullName', 'daysOff'];
@@ -26,9 +29,11 @@ export class DaysOffUsersComponent implements OnInit {
                 private userService: UserService,
                 private router: Router) { }
 
- 	ngOnInit() {
- 		this.getDaysOffStats();
+ 	  ngOnInit() {
+ 		  this.getDaysOffStats();
   	}
+
+
 
   	getDaysOffStats(){
 	     this.daysOffService.getDaysOffStats().subscribe((response: any)=> {
@@ -67,7 +72,6 @@ export class DaysOffUsersComponent implements OnInit {
         this.router.navigate(['days-off-per', id, 'calendar']);
         console.log(this.daysOff);
         let temp = this.daysOff[i];
-       // this.daysOff.splice(1);
         this.daysOff = [];
         this.daysOff.push(temp);
         console.log(this.daysOff);

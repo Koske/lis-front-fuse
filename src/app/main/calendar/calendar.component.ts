@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject } from 'rxjs';
 import { startOfDay, isSameDay, isSameMonth } from 'date-fns';
@@ -8,8 +8,11 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { fuseAnimations } from '@fuse/animations';
 import { DaysOffService } from '../service/days-off.service';
+import { HolidayService } from '../service/holiday.service';
 import { CalendarEventModel } from './event.model';
 import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
     selector     : 'calendar',
@@ -24,7 +27,7 @@ export class CalendarComponent implements OnInit
     activeDayIsOpen: boolean;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     dialogRef: any;
-    events: CalendarEvent[];
+    events: CalendarEvent[] = [];
     refresh: Subject<any> = new Subject();
     selectedDay: any;
     selectedDay1: any;
@@ -37,16 +40,23 @@ export class CalendarComponent implements OnInit
     ends: any[] = [];
     check: any[] = [];
     dates: any[] = [];
+    customEvents: any[] = [];
+    tempDate: any;
+
     constructor(
         private _matDialog: MatDialog,
         private daysOffService: DaysOffService,
-        private route: ActivatedRoute
+        private holidayService: HolidayService,
+        private route: ActivatedRoute,
+        private _formBuilder: FormBuilder,
+        private datePipe: DatePipe
     )
     {
         // Set the defaults
         this.view = 'month';
-        this.activeDayIsOpen = true;
+        this.activeDayIsOpen = false;
         this.viewDate = new Date();
+
 
     }
 
@@ -64,6 +74,28 @@ export class CalendarComponent implements OnInit
             this.daysOffService.getDaysOffUser(this.userId).subscribe((response: any)=> {
                 this.days = response.dayOff;
             });
+        });
+        this.getHolidays();
+
+    }
+
+    getHolidays(){
+        this.holidayService.getHolidays().subscribe((response: any)=> {
+                response.holidays.forEach((r)=> {
+                    this.customEvents.push(this.createEvent(r));
+                });
+                console.log(this.customEvents);
+                this.setEvents();
+        });
+    }
+
+    /**
+     * Set events
+     */
+    setEvents(): void
+    {
+        this.customEvents.forEach((r)=> {
+            this.events.push(new CalendarEventModel(r.value));
         });
 
     }
@@ -108,87 +140,46 @@ export class CalendarComponent implements OnInit
 
 
                 }
-                if(_today)
+                if(_today){
                     _today.isToday = false;
+                    for(let i of this.dates){
+                        if(i.getTime() == _today.date.getTime()){
+                            _today.isToday = true;
+                            break;
+                        }
+                    }
+                }
+
 
             });
         });
     }
 
-
-    /**
-     * Edit Event
+        /**
+     * Create the event form
      *
-     * @param {string} action
-     * @param {CalendarEvent} event
+     * @returns {FormGroup}
      */
-    editEvent(action: string, event: CalendarEvent): void
+    createEvent(event: any): FormGroup
     {
-        const eventIndex = this.events.indexOf(event);
 
-        this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-            panelClass: 'event-form-dialog',
-            data      : {
-                event : event,
-                action: action
-            }
+        return new FormGroup({
+            title : new FormControl(event.name),
+            start : new FormControl(event.start_date),
+            end   : new FormControl(event.end_date),
+            allDay: new FormControl(true),
+            recursOn: new FormControl('year'),
+            color : this._formBuilder.group({
+                primary  : new FormControl('#1e90ff'),
+                secondary: new FormControl('#D1E8FF')
+            }),
+            meta  :
+                this._formBuilder.group({
+                    location: new FormControl(''),
+                    notes   : new FormControl('')
+                })
         });
-
-        this.dialogRef.afterClosed()
-            .subscribe(response => {
-                if ( !response )
-                {
-                    return;
-                }
-                const actionType: string = response[0];
-                const formData: FormGroup = response[1];
-                switch ( actionType )
-                {
-                    /**
-                     * Save
-                     */
-                    case 'save':
-
-                        this.events[eventIndex] = Object.assign(this.events[eventIndex], formData.getRawValue());
-                        this.refresh.next(true);
-
-                        break;
-                    /**
-                     * Delete
-                     */
-                    case 'delete':
-
-
-                        break;
-                }
-            });
     }
-
-    /**
-     * Add Event
-     */
-    addEvent(): void
-    {
-        this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-            panelClass: 'event-form-dialog',
-            data      : {
-                action: 'new',
-                date  : this.selectedDay.date
-            }
-        });
-        this.dialogRef.afterClosed()
-            .subscribe((response: FormGroup) => {
-                if ( !response )
-                {
-                    return;
-                }
-                const newEvent = response.getRawValue();
-                newEvent.actions = this.actions;
-                this.events.push(newEvent);
-                this.refresh.next(true);
-            });
-    }
-
 
 }
 

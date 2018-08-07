@@ -232,10 +232,24 @@ export const navigation: FuseNavigation[] = [
                     },
                     {
                         id   : 'daysOffUser',
-                        title: 'Days Off Users',
+                        title: 'Days Off Stats',
                         icon: 'timer_off',
                         type : 'item',
                         url  : 'days-off-per'
+                    },
+                    {
+                        id   : 'newHoliday',
+                        title: 'New Holiday',
+                        icon: 'add_alarm',
+                        type : 'item',
+                        url  : 'new-holiday'
+                    },
+                    {
+                        id   : 'holidays',
+                        title: 'Holidays',
+                        icon: 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'holidays'
                     }
                 ]
             }

@@ -42,7 +42,9 @@ import { ParticipantTypeService } from './main/service/participant-type.service'
 import { DataService } from './main/service/data.service';
 import { PositionService } from './main/service/position.service';
 import { ReportService } from './main/service/report.service';
+import { CalendarService } from './main/calendar/calendar.service';
 import { UserService } from './main/service/user.service';
+import { HolidayService } from './main/service/holiday.service';
 import { UserTypeService } from './main/service/user-type.service';
 import { SalaryService } from './main/service/salary.service';
 import { BonusService } from './main/service/bonus.service';
@@ -97,20 +99,22 @@ import { DialogDeclinedDayOffComponent } from './main/dialog-declined-day-off/di
 import { DaysOffUsersComponent } from './main/days-off-users/days-off-users.component';
 import { CalendarModule } from './main/calendar/calendar.module';
 import { CalendarComponent } from './main/calendar/calendar.component';
+import { HolidaysComponent } from './main/holidays/holidays.component';
+import { NewHolidayComponent } from './main/holidays/new-holiday/new-holiday.component';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegistrationComponent},
     { path: 'project', component: ProjectComponent },
     { path: 'new-project', component: NewProjectComponent },
-    { path: 'projects/:id/edit', component: EditProjectComponent },
+    { path: 'pr/:id/edit', component: EditProjectComponent },
     { path: 'projects/:id/details', component: ProjectDetailsComponent },
     { path: 'projects/:id/etape', component: EtapeComponent },
     { path: 'projects/:id/etape-details', component: EtapeDetailsComponent },
     { path: 'projects/:id/edit-etape', component: EditEtapeComponent },
     { path: 'projects/:id/task', component: TaskComponent },
     { path: 'task-user/:projectId/:userId', component: TaskUserComponent },
-    { path: 'project-user/:id', component: ProjectUserComponent },
+    { path: 'user-assigned-pr/:id', component: ProjectUserComponent },
     { path: 'projects/:id/edit-task', component: TaskEditComponent },
     { path: 'users', component: UsersComponent},
     { path: 'edit-user/:id', component: EditUserComponent},
@@ -146,7 +150,9 @@ const appRoutes: Routes = [
     { path: 'days-off-per', component: DaysOffUsersComponent
     , children: [
         { path: ':id/calendar', component: CalendarComponent }
-    ] }
+    ] },
+    { path: 'holidays', component: HolidaysComponent },
+    { path: 'new-holiday', component: NewHolidayComponent }
 
 ];
 
@@ -200,7 +206,9 @@ const appRoutes: Routes = [
         NewPositionsComponent,
         DaysOffRequestComponent,
         DialogDeclinedDayOffComponent,
-        DaysOffUsersComponent
+        DaysOffUsersComponent,
+        HolidaysComponent,
+        NewHolidayComponent
     ],
     imports     : [
         BrowserModule,
@@ -262,7 +270,9 @@ const appRoutes: Routes = [
               ProjectTypeService,
               ParticipantTypeService,
               UserTypeService,
-              PositionService
+              PositionService,
+              HolidayService,
+              CalendarService
               ],
     bootstrap   : [
         AppComponent

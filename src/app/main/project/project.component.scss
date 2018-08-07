@@ -23,14 +23,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
 
 .pagination button.active {
     background-color: #009DFA;
     color: white;
 }
-tr{
+td{
   cursor: pointer;
 }
 tr.active {

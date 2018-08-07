@@ -242,7 +242,7 @@ export class ProjectComponent implements OnInit {
 
     onEdit(){
       if(this.projectId != -1){
-        this.router.navigate(['/projects', this.projectId, 'edit']);
+        this.router.navigate(['/pr', this.projectId, 'edit']);
       }
     }
 
