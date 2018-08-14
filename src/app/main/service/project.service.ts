@@ -41,8 +41,8 @@ export class ProjectService {
         );
     }
 
-    filterProject(finished: any, page: any, perPage: any){
-      return this.httpService.post("filterProjects", {finished: finished, page: page, perPage: perPage});
+    filterProject(finished: any, page: any, perPage: any, startDate: any, endDate: any, dates: any){
+      return this.httpService.post("filterProjects", {finished: finished, page: page, perPage: perPage, startDate: startDate, endDate: endDate, dates: dates});
     }
 
     removeProject(id: any){

@@ -34,4 +34,8 @@ export class SalaryService {
             (error) => console.log(error)
         );
     }
+
+    filterSalary(startDate: any, endDate: any){
+      return this.httpService.post("filterSalary", { startDate: startDate, endDate: endDate });
+    }
 }

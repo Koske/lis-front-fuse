@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SalaryService } from '../service/salary.service'
 import { ActivatedRoute, Router} from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-salaries',
@@ -8,22 +11,54 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./salaries.component.scss']
 })
 export class SalariesComponent implements OnInit {
-	salaries: any;
+	  salaries: any;
+    private _unsubscribeAll: Subject<any>;
+    form: FormGroup;
     displayedColumns = ['first_name', 'last_name', 'date_valid', 'bruto', 'neto'];
     salaryId: number= -1;
     netoTotal: number = 0;
     brutoTotal: number = 0;
+    salaryForm = {
+      startDate: '',
+      endDate: ''
+    }
+    clicked: boolean = false;
+        /**
+     * Constructor
+     *
+     * @param {FormBuilder} _formBuilder
+     */
   	constructor(
                 private salaryService: SalaryService,
-                private router: Router) { }
+                private router: Router,
+                private _formBuilder: FormBuilder,
+                private datePipe: DatePipe) {
+
+                    this._unsubscribeAll = new Subject();
+ }
 
   	ngOnInit() {
-		this.getSalaries();
+      this.form = this._formBuilder.group({
+
+          startDate : [''],
+          endDate  : ['']
+      });
+
+		  this.getSalaries();
   	}
+
+    ngOnDestroy(): void
+    {
+      // Unsubscribe from all subscriptions
+      this._unsubscribeAll.next();
+      this._unsubscribeAll.complete();
+    }
 
   	getSalaries(){
   		this.salaryService.getSalaries().subscribe((response: any) => {
   			this.salaries = response.salaries;
+        this.netoTotal = 0;
+        this.brutoTotal = 0;
         this.salaries.forEach((r)=> {
           this.netoTotal += r.neto;
           this.brutoTotal += r.bruto;
@@ -69,5 +104,49 @@ export class SalariesComponent implements OnInit {
 
     onEdit(){
       this.router.navigate(['/edit-salary', this.salaryId]);
+    }
+
+    toggleClick(){
+      this.clicked = !this.clicked;
+    }
+
+    onFinish(){
+      if(this.form.value.dates!= '' && (this.form.value.startDate!= '' || this.form.value.endDate!= '')){
+        if(this.form.value.startDate){
+          this.salaryForm.startDate = this.datePipe.transform(new Date(this.form.value.startDate), 'shortDate');
+        }else {
+          this.salaryForm.startDate = '';
+        }
+        
+        if(this.form.value.endDate){
+          this.salaryForm.endDate = this.datePipe.transform(new Date(this.form.value.endDate), 'shortDate');
+        }else {
+          this.salaryForm.endDate = '';
+        }
+
+        this.salaryService.filterSalary(this.salaryForm.startDate, this.salaryForm.endDate).subscribe((response: any)=> {
+          this.salaries = response.salaries;
+          this.netoTotal = 0;
+          this.brutoTotal = 0;
+          this.salaries.forEach((r)=> {
+            this.netoTotal += r.neto;
+            this.brutoTotal += r.bruto;
+          })
+          this.salaries.forEach((r) => {
+            r.date_valid = r.date_valid.substring(0, 10);
+          });
+        });
+
+      }
+    }
+
+    onReset(){
+      this.form.reset();
+      this.getSalaries();
+
+      setTimeout(() => {
+        this.form.reset();
+        this.getSalaries();
+      }, 500);
     }
 }

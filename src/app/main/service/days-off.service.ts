@@ -56,4 +56,9 @@ export class DaysOffService {
     getDaysOffStatsByUser(id){
       return this.httpService.post("getDaysOffStatsByUser", { id: id });
     }
+
+    filterDaysOff(startDate: any, endDate: any, dates: any, id: any){
+      return this.httpService.post("filterDaysOff", { startDate: startDate, endDate: endDate, dates: dates, id: id });
+    }
+
 }

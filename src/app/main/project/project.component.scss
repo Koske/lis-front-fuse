@@ -35,15 +35,13 @@ td{
 tr.active {
     background-color: #009DFA;
 }
-mat-checkbox{
-  margin-left: 23px;
-}
 #div1 {
   background-color: white;
 }
 .projectButtons {
   float: right;
   margin-left: 5px;
+  margin-top: 12px;
 }
 
 .mat-header-cell{
@@ -55,3 +53,45 @@ td{
     text-align: center; 
     vertical-align: middle;
 }
+#checkbox-row {
+  margin-top: 10px;
+}
+#filterButton{
+  display: inline-block;
+  margin-top: 12px;
+}
+
+form{
+  display: inline-block;
+   height: 45px;
+}
+
+table {
+  margin-top: 5px;
+}
+
+.div1Form {
+  display: inline-block;
+  width: 110px;
+}
+
+#apply{
+  margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+#clear{
+  display: inline-block;
+}
+
+#filterBy {
+  margin-right: 10px;
+  width: 100px;
+  max-width: 100px;
+}
+#startDate {
+  margin-right: 10px;
+
+}
+

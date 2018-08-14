@@ -5,7 +5,9 @@ import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/materia
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DialogComponent } from '../dialog/dialog.component'
+import { DialogComponent } from '../dialog/dialog.component';
+import { DatePipe } from '@angular/common';
+
 @Component({
     selector: 'app-edit-presence',
     templateUrl: './edit-presence.component.html',
@@ -15,6 +17,7 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
     form: FormGroup;
 	  formErrors: any;	
     private _unsubscribeAll: Subject<any>;
+    form1: FormGroup;
     currentUser: any;
     presences: any;
     presenceId: string = 'none';
@@ -22,6 +25,16 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
     realId: number = -1;
     type: string = 'none';
     displayedColumns = ['start', 'end'];
+    clicked: boolean = false;
+    dates = [
+      {value: 'unixStartDate', viewValue: 'Start Date'},
+      {value: 'unixEndDate', viewValue: 'End Date'}
+    ];
+    presenceForm = {
+      startDate: '',
+      endDate: '',
+      dates: ''
+    }
     /**
      * Constructor
      *
@@ -30,7 +43,8 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService,
       			    private presenceService: PresenceService,
       			    private _formBuilder: FormBuilder,
-                private dialog: MatDialog)
+                private dialog: MatDialog,
+                private datePipe: DatePipe)
     {
   			this.formErrors = {
   	            time 			   : {}
@@ -42,12 +56,19 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
     {
     	  this.userService.getCurrentUser().subscribe((response: any) => {
     		  this.currentUser = response.user;
+          console.log(this.currentUser);
   	  	  this.getPresences();
     	  });
 
         this.form = this._formBuilder.group({
 
             time : ['', Validators.required]
+        });
+
+        this.form1 = this._formBuilder.group({
+            startDate : [''],
+            endDate  : [''],
+            dates : ['']
         });
 
         this.form.valueChanges
@@ -108,7 +129,7 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
       		res.start = res.start.substring(0, 10) + ' ' + res.start.substring(11, 16);
       		res.end = res.end.substring(0, 10) + ' ' + res.end.substring(11, 16);
        
-      		})
+      		});
       	});
     }
     ngOnDestroy(): void
@@ -140,6 +161,20 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
         }
     }
 
+    toggleClick(){
+      this.clicked = !this.clicked;
+    }
+
+    onReset(){
+      this.form1.reset();
+      this.getPresences();
+
+      setTimeout(() => {
+        this.form1.reset();
+        this.getPresences();
+      }, 500);
+    }
+
     openDialog() {
         const dialogConfig = new MatDialogConfig();
 
@@ -165,5 +200,35 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
               console.log(this.presenceId, this.type, this.realId);
           }
         );
+    }
+
+    onFinish(){
+      if(this.form1.value.dates!= '' && (this.form1.value.startDate!= '' || this.form1.value.endDate!= '')){
+        
+        if(this.form1.value.startDate){
+          this.presenceForm.startDate = this.datePipe.transform(new Date(this.form1.value.startDate), 'shortDate');
+        }else{
+          this.presenceForm.startDate = '';
+        }
+        
+        if(this.form1.value.endDate){
+          this.presenceForm.endDate = this.datePipe.transform(new Date(this.form1.value.endDate), 'shortDate');
+        }else {
+          this.presenceForm.endDate = '';
+        }
+
+        this.presenceForm.dates = this.form1.value.dates;
+        this.presenceService.filterPresences(this.presenceForm.startDate, this.presenceForm.endDate, this.presenceForm.dates, this.currentUser.id).subscribe((response: any)=> {
+          
+          this.presences = response.presences
+
+          this.presences.forEach((res) => {
+            res.start = res.start.substring(0, 10) + ' ' + res.start.substring(11, 16);
+            res.end = res.end.substring(0, 10) + ' ' + res.end.substring(11, 16);
+         
+            });
+
+        });
+      }
     }
 }

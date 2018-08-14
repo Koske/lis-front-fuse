@@ -33,5 +33,15 @@ export class PresenceService {
 
     getEditedPresencesByUser(userId: any){
         return this.httpService.post('getEditedPresences', { userId: userId });
-  }
+    }
+
+    filterEditedPresences(startDate: any, endDate: any, dates: any, id: any){
+        return this.httpService.post("filterEditedPresences", {startDate: startDate, endDate: endDate, dates: dates, id: id});
+    }
+
+    filterPresences(startDate: any, endDate: any, dates: any, id: any){
+        return this.httpService.post("filterPresences", {startDate: startDate, endDate: endDate, dates: dates, id: id});
+    }
+
+
 }

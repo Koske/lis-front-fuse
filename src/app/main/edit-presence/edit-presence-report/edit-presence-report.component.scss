@@ -1,8 +1,55 @@
 .example-container {
   display: flex;
   flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
   overflow: auto;
-  width: 80em;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+}
+
+td{
+    text-align: center; 
+    vertical-align: middle;
+}
+
+.mat-header-cell{
+    text-align: center; 
+    vertical-align: middle;
+    width: 20%;
+}
+
+.div1Form {
+  display: inline-block;
+  width: 110px;
+  margin-left: 10px;
+}
+
+#apply{
+  margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+#clear{
+  display: inline-block;
+}
+
+#filterButton{
+  display: inline-block;
+  margin-top: 12px;
+}
+
+form{
+  display: inline-block;
+   height: 45px;
+}
+
+table {
+  margin-top: 5px;
+}
+
+#filterBy {
+  margin-left: 10px;
+  width: 100px;
+  max-width: 100px;
 }

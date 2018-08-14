@@ -70,13 +70,10 @@ export class DaysOffUsersComponent implements OnInit  {
         this.getDaysOffStats();
       }else{
         this.router.navigate(['days-off-per', id, 'calendar']);
-        console.log(this.daysOff);
         let temp = this.daysOff[i];
         this.daysOff = [];
         this.daysOff.push(temp);
-        console.log(this.daysOff);
 
-        console.log(i);
       }
         this.clicked = !this.clicked;
     }

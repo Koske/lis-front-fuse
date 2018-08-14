@@ -25,4 +25,8 @@ export class HolidayService {
 	            (error) => console.log(error)
         	);
   	}
+
+    filterHolidays(startDate: any, endDate: any, dates: any){
+      return this.httpService.post("filterHolidays", {startDate: startDate, endDate: endDate, dates: dates});
+    }
 }

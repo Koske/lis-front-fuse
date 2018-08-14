@@ -33,4 +33,8 @@ export class BonusService {
             (error) => console.log(error)
         );
   }
+
+  filterBonuses(startDate: any, endDate: any, dates: any){
+    return this.httpService.post("filterBonuses", { startDate: startDate, endDate: endDate, dates: dates});
+  }
 }

@@ -14,6 +14,7 @@ import { CalendarEventFormDialogComponent } from './event-form/event-form.compon
 import { DatePipe } from '@angular/common';
 
 
+
 @Component({
     selector     : 'calendar',
     templateUrl  : './calendar.component.html',
@@ -76,6 +77,20 @@ export class CalendarComponent implements OnInit
             });
         });
         this.getHolidays();
+    }    
+
+
+
+    /**
+     * Set events
+     */
+    setEvents(): void
+    {
+
+        this.customEvents.forEach((r)=> {
+            this.events.push(new CalendarEventModel(r.value));
+        });
+            this.refresh.next();
 
     }
 
@@ -84,20 +99,8 @@ export class CalendarComponent implements OnInit
                 response.holidays.forEach((r)=> {
                     this.customEvents.push(this.createEvent(r));
                 });
-                console.log(this.customEvents);
                 this.setEvents();
         });
-    }
-
-    /**
-     * Set events
-     */
-    setEvents(): void
-    {
-        this.customEvents.forEach((r)=> {
-            this.events.push(new CalendarEventModel(r.value));
-        });
-
     }
 
     /**
@@ -168,7 +171,6 @@ export class CalendarComponent implements OnInit
             start : new FormControl(event.start_date),
             end   : new FormControl(event.end_date),
             allDay: new FormControl(true),
-            recursOn: new FormControl('year'),
             color : this._formBuilder.group({
                 primary  : new FormControl('#1e90ff'),
                 secondary: new FormControl('#D1E8FF')

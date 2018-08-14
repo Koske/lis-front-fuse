@@ -6,6 +6,10 @@ import { DaysOffService } from '../service/days-off.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { DialogDeclinedDayOffComponent } from '../dialog-declined-day-off/dialog-declined-day-off.component'
 import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-days-off-request',
@@ -14,8 +18,10 @@ import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/materia
 })
 export class DaysOffRequestComponent implements OnInit {
 
-	daysOff: any;
-	daysOffId: number = -1;
+    private _unsubscribeAll: Subject<any>;
+    form: FormGroup;
+	  daysOff: any;
+	  daysOffId: number = -1;
     displayedColumns = ['fullName', 'start', 'end', 'status'];
     decision = {
     	dayOffId: 0,
@@ -23,16 +29,66 @@ export class DaysOffRequestComponent implements OnInit {
     	reasonDeclined: ''
     }
     reasons: any;
+    daysOffForm = {
+      startDate: '',
+      endDate: '',
+      dates: ''
+    }
+    clicked: boolean = false;
+    dates = [
+      {value: 'unixStartDate', viewValue: 'Start Date'},
+      {value: 'unixEndDate', viewValue: 'End Date'}
+    ];
+
+    /**
+     * Constructor
+     *
+     * @param {FormBuilder} _formBuilder
+     */
   	constructor(private daysOffService: DaysOffService,
                 private userService: UserService,
                 private router: Router,
-                private dialog: MatDialog) { }
+                private dialog: MatDialog,
+                private _formBuilder: FormBuilder,
+                private datePipe: DatePipe) { 
+    this._unsubscribeAll = new Subject();
+
+    }
 
  	ngOnInit() {
-       this.getDaysOff();
+
+    this.form = this._formBuilder.group({
+        startDate : [''],
+        endDate  : [''],
+        dates : ['']
+    });
+
+    this.getDaysOff();
     
  		
   	}
+
+    ngOnDestroy(): void
+    {
+      // Unsubscribe from all subscriptions
+      this._unsubscribeAll.next();
+      this._unsubscribeAll.complete();
+    }
+
+    toggleClick(){
+      this.clicked = !this.clicked;
+    }
+
+
+  onReset(){
+    this.form.reset();
+    this.getDaysOff();
+
+    setTimeout(() => {
+      this.form.reset();
+      this.getDaysOff();
+    }, 500);
+  }
 
   	getDaysOff(){
   		this.daysOffService.getDaysOff().subscribe((response: any)=> {
@@ -107,7 +163,35 @@ export class DaysOffRequestComponent implements OnInit {
 
     onDecline(){
       if(this.daysOffId!= -1 ){
- 		this.openDialog();
+ 		    this.openDialog();
+      }
+    }
+
+    onFinish(){
+      if(this.form.value.dates!= '' && (this.form.value.startDate!= '' || this.form.value.endDate!= '')){
+        
+        if(this.form.value.startDate){
+          this.daysOffForm.startDate = this.datePipe.transform(new Date(this.form.value.startDate), 'shortDate');
+        }else{
+          this.daysOffForm.startDate = '';
+        }
+        
+        if(this.form.value.endDate){
+          this.daysOffForm.endDate = this.datePipe.transform(new Date(this.form.value.endDate), 'shortDate');
+        }else {
+          this.daysOffForm.endDate = '';
+        }
+
+        this.daysOffForm.dates = this.form.value.dates;
+
+        this.daysOffService.filterDaysOff(this.daysOffForm.startDate, this.daysOffForm.endDate, this.daysOffForm.dates, null).subscribe((response: any)=> {
+          console.log(response);
+          this.daysOff = response.daysOff;
+          this.daysOff.forEach((r)=> {
+            r.start = r.start.substring(0, 10);
+            r.end = r.end.substring(0, 10);
+          });
+        });
       }
     }
 
