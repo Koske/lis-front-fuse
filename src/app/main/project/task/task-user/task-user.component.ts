@@ -28,7 +28,6 @@ export class TaskUserComponent implements OnInit {
     getTasks(){
   	    this.projectService.getTasksForParticipant(this.projectId, this.userId).subscribe((response: any) => {
   	    	this.tasks = response.tasks;
-          console.log(response.tasks);
   	    });
         this.projectService.getProjectById(this.projectId).subscribe((response: any) => {
           this.projectName = response.project.name;

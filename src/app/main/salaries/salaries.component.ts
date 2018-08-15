@@ -63,7 +63,6 @@ export class SalariesComponent implements OnInit {
           this.netoTotal += r.neto;
           this.brutoTotal += r.bruto;
         })
-        console.log(this.salaries);
   			this.salaries.forEach((r) => {
   				r.date_valid = r.date_valid.substring(0, 10);
   			});
@@ -90,7 +89,6 @@ export class SalariesComponent implements OnInit {
 	        let table = document.getElementById(slrId);
 	        table.classList.toggle("active");
       	}
-       console.log(this.salaryId);
     }
 
   	onRemove(){

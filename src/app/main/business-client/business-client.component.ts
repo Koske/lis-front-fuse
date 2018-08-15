@@ -46,7 +46,6 @@ export class BusinessClientComponent implements OnInit {
 	        let table = document.getElementById(slrId);
 	        table.classList.toggle("active");
       	}
-       console.log(this.bsnsId);
     }
 
 

@@ -51,7 +51,6 @@ export class EditDaysOffComponent implements OnInit {
 		this.daysOff.daysOffId = this.route.snapshot.params['id'];
 
 		this.daysOffService.getDayOffById(this.daysOff.daysOffId).subscribe((response: any)=> {
-	        console.log(response)
 	        this.form = this._formBuilder.group({
 
 	            start   : [response.dayOff.start, Validators.required],

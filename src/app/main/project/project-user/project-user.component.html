@@ -1,8 +1,42 @@
 <div class="example-container mat-elevation-z8">
-    <div id="div1">
-        
+    <div class="row" id="div1">
+
+	<button id="filterButton" type="button" mat-raised-button color="accent" (click)="toggleClick()">Filters</button>
+	<button class="projectButtons" type="button" (click)="onDetails()" mat-raised-button color="primary">Details</button>
     </div>
-    <h1>My projects <button class="projectButtons" type="button" (click)="onDetails()" mat-raised-button color="primary">Details</button></h1>
+    <div class="row" id="checkbox-row">
+	    <mat-checkbox *ngIf="clicked" #checkbox class="example-margin" (click)="toggleFilter()">Finished projects</mat-checkbox>
+    </div>
+    <div class="row">
+        <form *ngIf="clicked" name="form" [formGroup]="form" novalidate>
+	       	<mat-form-field id="filterBy">
+			  <mat-select placeholder="Filter by" formControlName="dates">
+			    <mat-option *ngFor="let date of dates" [value]="date.value" >
+			      {{ date.viewValue }}
+			    </mat-option>
+			  </mat-select>
+			</mat-form-field>
+            <mat-form-field class="div1Form" id="startDate">
+				<input matInput [matDatepicker]="startDate" placeholder="Start date" formControlName="startDate">
+				<mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+				<mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="div1Form">
+				<input matInput [matDatepicker]="endDate" placeholder="End date" formControlName="endDate">
+				<mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+				<mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+
+            <button id="apply" mat-raised-button type="button" color="accent" (click)="onApply()"
+            	[disabled]="!form.valid">
+                Apply
+            </button>
+            <button id="clear" mat-raised-button type="button" color="primary" (click)="onReset()">Clear</button>
+		</form>
+
+    </div>
+
     <table mat-table #table [dataSource]="projectsIter">
 
 	    <ng-container matColumnDef="name">

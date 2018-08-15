@@ -58,7 +58,6 @@ export class NewSalaryComponent implements OnInit {
 		// Reactive Form
 		this.userService.getAllUsersSimple().subscribe((response: any) => {
 			this.users = response.users;
-			console.log(this.users);
 		});
 
         this.form = this._formBuilder.group({

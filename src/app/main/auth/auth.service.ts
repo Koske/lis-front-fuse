@@ -15,7 +15,6 @@ export class AuthService {
               private router: Router) {}
 
     login(user: any) {
-        console.log(user.password);
         const params:any = {
             username: user.username,
             password: user.password,

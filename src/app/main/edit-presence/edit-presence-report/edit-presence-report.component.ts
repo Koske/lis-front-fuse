@@ -67,7 +67,6 @@ export class EditPresenceReportComponent implements OnInit {
        
        this.presences = response.presences;
        this.fullUserName = response.user.first_name + ' ' + response.user.last_name;
-       console.log(response);
          for(let p of this.presences){
            if(p.start){
              p.start = p.start.substring(0, 10) + ' ' + p.start.substring(11, 16);
@@ -123,7 +122,6 @@ export class EditPresenceReportComponent implements OnInit {
       this.presenceService.filterEditedPresences(this.presenceForm.startDate, this.presenceForm.endDate, this.presenceForm.dates, this.userId).subscribe((response: any)=> {
          
        this.presences = response.presences;
-       console.log(response);
          for(let p of this.presences){
            if(p.start){
              p.start = p.start.substring(0, 10) + ' ' + p.start.substring(11, 16);

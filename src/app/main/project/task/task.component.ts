@@ -64,7 +64,6 @@ export class TaskComponent implements OnInit, OnDestroy {
   	    this.participantService.getParticipantsForProject(this.etapeId.id)
   	        .subscribe((response: any) => {
   	         	this.participants = response.participants;
-               console.log(response);
   	    });
         this.form = this._formBuilder.group({
             name : ['', Validators.required],

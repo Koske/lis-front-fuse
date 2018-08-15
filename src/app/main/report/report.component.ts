@@ -39,7 +39,6 @@ export class ReportComponent implements OnInit
 	  		this.firstName = response.user.first_name;
 	  		this.lastName = response.user.last_name;
 	  		this.info = response.months;
-	        console.log(response); 
 	  	});
     }
 
@@ -48,7 +47,6 @@ export class ReportComponent implements OnInit
 
   	this.reportService.getInitialInfo(this.userId, this.currentYear, this.currentMonth).subscribe((response: any) => {
   		this.info = response.months;
-  		console.log(response);
   	});
   }
 
@@ -57,7 +55,6 @@ export class ReportComponent implements OnInit
 
   	this.reportService.getInitialInfo(this.userId, this.currentYear, this.currentMonth).subscribe((response: any) => {
   		this.info = response.months;
-  		console.log(response);
   	});
   }
 

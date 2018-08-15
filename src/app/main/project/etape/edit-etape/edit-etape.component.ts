@@ -64,7 +64,6 @@ export class EditEtapeComponent implements OnInit {
 	   this.etape.id = this.etapeId.id;
 
 	   this.projectService.getEtapeById(this.etapeId.id).subscribe((r:any )=> {
-	   	console.log(r);
 	   	this.form = this._formBuilder.group({
 
             name : [r.etape.name, Validators.required],

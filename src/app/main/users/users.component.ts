@@ -30,7 +30,6 @@ export class UsersComponent implements OnInit {
 
     this.dataService.currentMessage.subscribe(message => {
       this.searchTerm = message;
-      console.log(this.searchTerm);
       if(this.searchTerm!= ''){
         this.search(1, this.searchTerm);
       }else{
@@ -56,7 +55,6 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers(this.users, page, 5).subscribe((response: any) => {
        this.pages = [];
        this.users = response.users;
-       console.log(response);
        this.totalPages = response;
        this.total = response.total_pages;
        this.currentPage = page;
@@ -117,7 +115,6 @@ export class UsersComponent implements OnInit {
 
         setTimeout( () => {
             this.getAllUsers(this.currentPage);
-            console.log("I got executed!");
         },1000);
         
 
@@ -156,7 +153,6 @@ export class UsersComponent implements OnInit {
       table.classList.toggle("active");
     }
  
-    console.log(this.userId, this.ind);
   }
 
   onEdit(){

@@ -36,7 +36,6 @@ export class MonthlyReportComponent implements OnInit {
     	let hours = 0;
     	let minutes = 0;
     	let seconds = 0;
-    	console.log(response.presence);
 
     	for(let i of response.presence){
     		check_instr.push(i.start.substring(11, 19));
@@ -72,7 +71,6 @@ export class MonthlyReportComponent implements OnInit {
     		check_out.push(total);
     	});
 
-    	console.log(check_in, check_out);
 
     	Chart.defaults.global.defaultFontFamily = 'Arial';
     	Chart.defaults.global.defaultFontColor = 'black';
@@ -133,7 +131,6 @@ export class MonthlyReportComponent implements OnInit {
     		}
     	})
 
-  		console.log(check_instr, check_outstr);
   	});
   }
   epoch_to_hh_mm_ss(epoch) {

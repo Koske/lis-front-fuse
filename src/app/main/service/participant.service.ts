@@ -42,4 +42,8 @@ export class ParticipantService {
   getParticipantForTask(task: any){
     return this.httpService.post("getParticipantForTask", {id: task});
   }
+
+  filterProjectsByUser(id: any, startDate: any, endDate: any, dates: any, finished: any){
+    return this.httpService.post("filterProjectsByUser", {id: id, startDate: startDate, endDate: endDate, dates: dates, finished: finished });
+  }
 }

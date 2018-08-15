@@ -49,7 +49,6 @@ export class EditTeamComponent implements OnInit {
 		
 
 	    this.teamService.getTeamById(this.teamId).subscribe((r:any )=> {
-	    	console.log(r);
 		   	this.form = this._formBuilder.group({
 
 	            name : [r.team.name, Validators.required],

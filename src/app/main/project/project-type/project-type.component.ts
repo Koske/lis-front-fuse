@@ -44,8 +44,6 @@ export class ProjectTypeComponent implements OnInit {
         let table = document.getElementById(prTypeId);
         table.classList.toggle("active");
       }
-
-       console.log(this.projectTypeId);
     }
 
     onRemove(){

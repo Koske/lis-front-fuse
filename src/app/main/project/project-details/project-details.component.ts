@@ -68,7 +68,6 @@ export class ProjectDetailsComponent implements OnInit {
               el.end = el.end.substring(0, 10);
             }
             this.etap = response.etapes;
-            console.log(this.etap);
             this.calculatePercentage();
           });
 
@@ -77,7 +76,6 @@ export class ProjectDetailsComponent implements OnInit {
             for(let e of response.participant_types){
               this.participantTypes.push(e);
             }
-            console.log(this.participantTypes);
           });
     }
 
@@ -88,7 +86,6 @@ export class ProjectDetailsComponent implements OnInit {
             for(let el of response.users){
               this.nonePart.push(el);
             }
-            console.log(this.nonePart);
         });
     }
 
@@ -101,7 +98,6 @@ export class ProjectDetailsComponent implements OnInit {
           for(let el of response.part){
             this.participants.push(el);
           }
-          console.log(this.participants); 
         });
     }
 
@@ -155,7 +151,6 @@ export class ProjectDetailsComponent implements OnInit {
         let table = document.getElementById(id);
         table.classList.toggle("active");
       }
-      console.log("User id:" + this.nonParticipantId);
     }
 
     partId(id){
@@ -185,7 +180,6 @@ export class ProjectDetailsComponent implements OnInit {
         let table = document.getElementById(id);
         table.classList.toggle("active");
       }
-      console.log("Participant id:" + this.participantId);
     }
   
     calculatePercentage(){
@@ -196,7 +190,6 @@ export class ProjectDetailsComponent implements OnInit {
           el.percentage = 0;
         }
       }
-        console.log(this.etap);
     }
 
     onAddEtape(){

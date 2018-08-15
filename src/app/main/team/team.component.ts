@@ -44,7 +44,6 @@ export class TeamComponent implements OnInit {
         table.classList.toggle("active");
       }
 
-       console.log(this.teamId);
     }
 
     onRemove(){

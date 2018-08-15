@@ -77,7 +77,6 @@ export class TaskEditComponent implements OnInit {
 			});
 	  	this.projectService.getTaskById(this.taskId.id).subscribe((response: any) => {
 	  		this.task = response;
-	  		console.log(this.task);
 	  		this.etapeId = this.task.task.etape.id;
 	  		this.participantService.getParticipantsForProject(this.etapeId)
 		        .subscribe((response: any) => {

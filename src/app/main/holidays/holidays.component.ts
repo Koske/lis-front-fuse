@@ -107,7 +107,6 @@ export class HolidaysComponent implements OnInit {
         table.classList.toggle("active");
       }
 
-       console.log(this.holidayId);
     }
 
     onRemove(){
@@ -136,7 +135,6 @@ export class HolidaysComponent implements OnInit {
         this.holidayForm.dates = this.form.value.dates;
 
         this.holidayService.filterHolidays(this.holidayForm.startDate, this.holidayForm.endDate, this.holidayForm.dates).subscribe((response: any)=> {
-          console.log(response);
 
           response.holidays.forEach((r)=> {
             r.start_date = r.start_date.substring(0, 10);

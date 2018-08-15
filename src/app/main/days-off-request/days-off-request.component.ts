@@ -185,7 +185,6 @@ export class DaysOffRequestComponent implements OnInit {
         this.daysOffForm.dates = this.form.value.dates;
 
         this.daysOffService.filterDaysOff(this.daysOffForm.startDate, this.daysOffForm.endDate, this.daysOffForm.dates, null).subscribe((response: any)=> {
-          console.log(response);
           this.daysOff = response.daysOff;
           this.daysOff.forEach((r)=> {
             r.start = r.start.substring(0, 10);

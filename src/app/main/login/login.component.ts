@@ -123,7 +123,6 @@ export class LoginComponent implements OnInit {
     onLogin() {
     	this.user.username = this.loginForm.value.email;
 	    this.user.password = this.loginForm.value.password;
-	    console.log(this.user);
     	this.authService.login(this.user);
     }
 

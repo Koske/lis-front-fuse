@@ -44,8 +44,6 @@ export class ParticipantTypeComponent implements OnInit {
         let table = document.getElementById(prTypeId);
         table.classList.toggle("active");
       }
-
-       console.log(this.participantTypeId);
     }
 
     onRemove(){

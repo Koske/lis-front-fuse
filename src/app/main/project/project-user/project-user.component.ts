@@ -6,7 +6,10 @@ import { ParticipantService } from '../../service/participant.service';
 import { UserService } from '../../service/user.service';
 import { Router} from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
-
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-user',
@@ -14,42 +17,103 @@ import { MatTableDataSource } from '@angular/material';
   styleUrls: ['./project-user.component.scss']
 })
 export class ProjectUserComponent implements OnInit {
-	projectsIter :any[] = [];
-	projects :any[];
-	searchPages: any;
-	displayedColumns: string[] = ['name', 'description', 'start_date', 'estimated_duration', 'finished'];
-	id: number;
-	pages: any[] = [];
-	totalPages = {
-	  total_pages: []
-	};
-	projectId: number = -1;
-	again: boolean = true;
-	filter: boolean = false;
-	total: number = 0;
-	currentPage: number = 1;
-	searchTerm: string;
-	user: any;
-	userId: any;
+    
+    @ViewChild('checkbox') checkbox;
+    private _unsubscribeAll: Subject<any>;
+    form: FormGroup;
+    projectsIter :any[] = [];
+    projects :any[];
+    searchPages: any;
+    displayedColumns: string[] = ['name', 'description', 'start_date', 'estimated_duration', 'finished'];
+    id: number;
+    pages: any[] = [];
+    totalPages = {
+      total_pages: []
+    };
+    projectId: number = -1;
+    again: boolean = true;
+    filter: boolean = false;
+    total: number = 0;
+    currentPage: number = 1;
+    searchTerm: string;
+    user: any;
+    userId: any;
+    clicked: boolean = false;
+    projectForm = {
+      startDate: null,
+      endDate: null,
+      dates: null
+    }
+    filterDate: boolean = false;
+    dates = [
+      {value: 'unixStartDate', viewValue: 'Start date'},
+      {value: 'unixEstimatedDuration', viewValue: 'Estimated'}
+    ];
+    applied: boolean = false;
+
+
+    /**
+     * Constructor
+     *
+     * @param {FormBuilder} _formBuilder
+     */
     constructor(private router: Router,
                 private projectService: ProjectService,
                 private dataService: DataService,
                 private participantService: ParticipantService,
-                private userService: UserService) { }
+                private userService: UserService,
+                private _formBuilder: FormBuilder,
+                private datePipe: DatePipe) { 
+        this._unsubscribeAll = new Subject();
 
-	ngOnInit() {
-		this.getAllProjects();
+                 }
 
-        // this.dataService.currentMessage.subscribe(message => {
-        //   this.searchTerm = message;
-        //   console.log(this.searchTerm);
-        //   if(this.searchTerm!= ''){
-        //     this.search(1, this.searchTerm);
+    ngOnInit() {
+      this.userService.getCurrentUser().subscribe((response: any) => {
+        this.userId = response.user.id;
+        this.getAllProjects();
 
-        //     this.getAllProjects();
-        //   }
-        // });
+      });
 
+
+
+
+      this.form = this._formBuilder.group({
+
+          startDate : [null],
+          endDate  : [null],
+          dates  : [null]
+      });
+    }
+
+    ngOnDestroy(): void
+    {
+      // Unsubscribe from all subscriptions
+      this._unsubscribeAll.next();
+      this._unsubscribeAll.complete();
+    }
+
+    toggleClick(){
+      this.clicked = !this.clicked;
+    }
+
+    toggleFilter(){
+      if(this.projectId!=-1){
+        let id2 = this.projectId.toString();
+        let table = document.getElementById(id2);
+        table.classList.toggle("active");
+        this.projectId = -1;
+      }
+        this.filter = !this.filter;
+      if(this.filterDate){
+        this.onApply();
+
+      }else if(this.filter){
+        this.filterProjects();
+      }
+      else{
+        this.getAllProjects();
+      }
     }
 
     search(page, searchTerm){
@@ -108,23 +172,39 @@ export class ProjectUserComponent implements OnInit {
         table.classList.toggle("active");
       }
 
-       console.log(this.projectId);
     }
 
+    filterProjects(){
+
+      this.participantService.filterProjectsByUser(this.userId, this.projectForm.startDate, this.projectForm.endDate, this.projectForm.dates, this.filter)
+        .subscribe((response: any) => {
+             for(let i of response.projects){
+               i.start_date = i.start_date.substring(0 ,10);
+               i.estimated_duration = i.estimated_duration.substring(0 ,10);
+             }
+             this.projectsIter = response.projects;
+      });
+    }
+
+    onReset(){
+        this.form.reset();
+        this.filterDate = false;
+        this.filter = false;
+        this.checkbox.checked = false;
+        this.getAllProjects();
+
+    }
 
     getAllProjects(){
-  		this.userService.getCurrentUser().subscribe((response: any) => {
-  			this.userId = response.user.id;
-        console.log(response);
-          this.participantService.getProjectsForUser(this.userId).subscribe((response: any) => {
-           	for(let i of response.projects){
-           		i.start_date = i.start_date.substring(0 ,10);
-           		i.estimated_duration = i.estimated_duration.substring(0 ,10);
-           	}
-           	this.projectsIter = response.projects;
-           	console.log(this.projectsIter);
-       	  });
-  		});
+
+      this.participantService.filterProjectsByUser(this.userId, null, null, null, null)
+        .subscribe((response: any) => {
+             for(let i of response.projects){
+               i.start_date = i.start_date.substring(0 ,10);
+               i.estimated_duration = i.estimated_duration.substring(0 ,10);
+             }
+             this.projectsIter = response.projects;
+      });
        
     }
 
@@ -132,6 +212,34 @@ export class ProjectUserComponent implements OnInit {
       if(this.projectId != -1){
         this.id = this.projectId;
         this.router.navigate(['/task-user', this.projectId, this.userId]);
+      }
+    }
+
+    onApply(){
+      if(this.form.value.dates!= null && (this.form.value.startDate!= null || this.form.value.endDate!= null)){
+        this.filterDate = true;
+        if(this.form.value.startDate){
+          this.projectForm.startDate = this.datePipe.transform(new Date(this.form.value.startDate), 'shortDate');
+        }else{
+          this.projectForm.startDate = '';
+        }
+        if(this.form.value.endDate){
+          this.projectForm.endDate = this.datePipe.transform(new Date(this.form.value.endDate), 'shortDate');
+        }else{
+          this.projectForm.endDate = '';
+        }
+        this.projectForm.dates = this.form.value.dates;
+
+      this.participantService.filterProjectsByUser(this.userId, this.projectForm.startDate, this.projectForm.endDate, this.projectForm.dates, this.filter).subscribe((response: any)=> {
+             for(let i of response.projects){
+               i.start_date = i.start_date.substring(0 ,10);
+               i.estimated_duration = i.estimated_duration.substring(0 ,10);
+             }
+             this.projectsIter = response.projects;
+
+
+      });
+
       }
     }
 

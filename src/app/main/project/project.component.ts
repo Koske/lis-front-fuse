@@ -81,7 +81,6 @@ export class ProjectComponent implements OnInit {
         this.getAllProjects(1);
             this.dataService.currentMessage.subscribe(message => {
               this.searchTerm = message;
-              console.log(this.searchTerm);
               if(this.searchTerm!= ''){
                 this.search(1, this.searchTerm);
               }else if(this.filter){
@@ -159,7 +158,6 @@ export class ProjectComponent implements OnInit {
         table.classList.toggle("active");
       }
 
-       console.log(this.projectId);
     }
 
 
@@ -194,7 +192,6 @@ export class ProjectComponent implements OnInit {
           }
 
           this.totalPages.total_pages = this.pages;
-          console.log(this.projectsIter);
         });
     }
 
@@ -387,7 +384,6 @@ export class ProjectComponent implements OnInit {
             this.projectsIter = response.projects;
             this.projects = response;
             this.currentPage = page;
-        console.log(response.projects);
 
             for(let el of this.projectsIter){
               el.estimated_duration = el.estimated_duration.substring(0, 10);

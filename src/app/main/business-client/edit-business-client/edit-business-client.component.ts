@@ -63,7 +63,6 @@ export class EditBusinessClientComponent implements OnInit {
 
 
 		this.businessClientService.getBusinessClientById(this.bsnsId).subscribe((response: any) => {
-	        console.log(response.businessClient);
           this.businessClientService.getCountries().subscribe((response: any)=> {
             this.countries= response.countries;
           });

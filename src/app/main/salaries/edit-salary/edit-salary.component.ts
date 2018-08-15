@@ -62,7 +62,6 @@ export class EditSalaryComponent implements OnInit {
 		// Reactive Form
 		this.userService.getAllUsersSimple().subscribe((response: any) => {
 			this.users = response.users;
-			console.log(this.users);
 		});
 
 		this.salaryService.getSalaryById(this.salaryId).subscribe((response: any) => {

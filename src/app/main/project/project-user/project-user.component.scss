@@ -6,8 +6,28 @@
   background-color: white;
   padding: 15px;
 }
-h1 {
-  padding: 15px;
+
+.pagination button {
+  background-color: #dcdfe5;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.pagination button:disabled{
+    cursor: not-allowed;
+}
+.pagination {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination button.active {
+    background-color: #009DFA;
+    color: white;
 }
 td{
   cursor: pointer;
@@ -15,15 +35,14 @@ td{
 tr.active {
     background-color: #009DFA;
 }
-mat-checkbox{
-  margin-left: 23px;
-}
 #div1 {
   background-color: white;
 }
 .projectButtons {
   float: right;
   margin-left: 5px;
+  margin-top: 12px;
+  display: inline-block;
 }
 
 .mat-header-cell{
@@ -35,3 +54,46 @@ td{
     text-align: center; 
     vertical-align: middle;
 }
+#checkbox-row {
+  margin-top: 10px;
+}
+#filterButton{
+  display: inline-block;
+  margin-top: 12px;
+  display: inline-block;
+}
+
+form{
+  display: inline-block;
+   height: 45px;
+}
+
+table {
+  margin-top: 5px;
+}
+
+.div1Form {
+  display: inline-block;
+  width: 110px;
+}
+
+#apply{
+  margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+#clear{
+  display: inline-block;
+}
+
+#filterBy {
+  margin-right: 10px;
+  width: 100px;
+  max-width: 100px;
+}
+#startDate {
+  margin-right: 10px;
+
+}
+

@@ -85,7 +85,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             });
 
 	    this.userService.getUserData().subscribe(data => {
-	      console.log(data);
 	      this.userData = data;
 	    });
 	}

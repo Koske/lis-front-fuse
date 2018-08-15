@@ -36,10 +36,6 @@ export class HttpService {
 			'Access-Control-Allow-Origin': '*'
 		});
 
-		// this.http.get(url + givenUrl, headers).subscribe(data => {
-		// 	console.log(data);
-		// })
-
 		return this.http.get(url + givenUrl, headers);
 	}
 

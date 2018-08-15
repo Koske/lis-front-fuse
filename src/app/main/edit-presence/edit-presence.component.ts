@@ -56,7 +56,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
     {
     	  this.userService.getCurrentUser().subscribe((response: any) => {
     		  this.currentUser = response.user;
-          console.log(this.currentUser);
   	  	  this.getPresences();
     	  });
 
@@ -107,7 +106,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
         }
         this.openDialog();
 
-        console.log(this.presenceId, type, realId);
     }
 
     onSubmit(){
@@ -121,7 +119,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
 
     getPresences(){
       	this.presenceService.getPresenceByUser(this.currentUser).subscribe((response: any) => {
-      	console.log(response.presences);
 
       	this.presences = response.presences
 
@@ -184,8 +181,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(
           data => {
-            // if(data)
-            // console.log("Dialog output:", data.time)
 
               let table = document.getElementById(this.presenceId);
               table.classList.toggle("active");
@@ -197,7 +192,6 @@ export class EditPresenceComponent implements OnInit, OnDestroy {
               this.type = 'none';
               this.getPresences();
 
-              console.log(this.presenceId, this.type, this.realId);
           }
         );
     }

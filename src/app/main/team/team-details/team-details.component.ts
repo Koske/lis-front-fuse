@@ -31,7 +31,6 @@ export class TeamDetailsComponent implements OnInit {
 	getUsersForTeam(){
 		this.teamService.getUsersForTeam(this.teamId).subscribe((response: any) => {
 			this.users = response.users;
-			console.log(this.users);
 		});
 	}
 	stashInfo(userId){
@@ -55,7 +54,6 @@ export class TeamDetailsComponent implements OnInit {
 	      table.classList.toggle("active");
 	    }
 	 
-	    console.log(this.userId);
 	}
 
 	onRemove(){

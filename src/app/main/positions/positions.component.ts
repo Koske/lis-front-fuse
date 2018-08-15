@@ -45,7 +45,6 @@ export class PositionsComponent implements OnInit {
         table.classList.toggle("active");
       }
 
-       console.log(this.positionId);
     }
 
     onRemove(){
