@@ -53,6 +53,20 @@ export const navigation: FuseNavigation[] = [
                         icon: 'format_list_bulleted',
                         type : 'item',
                         url  : 'participant-types'
+                    },
+                    {
+                        id   : 'addProjectExpense',
+                        title: 'Add Project Expense',
+                        icon: 'attach_money',
+                        type : 'item',
+                        url  : 'new-project-expense'
+                    },
+                    {
+                        id   : 'allProjectExpenses',
+                        title: 'All Project Expenses',
+                        icon: 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'project-expenses'
                     }
 
                 ]
@@ -250,6 +264,50 @@ export const navigation: FuseNavigation[] = [
                         icon: 'format_list_bulleted',
                         type : 'item',
                         url  : 'holidays'
+                    }
+                ]
+            },
+            {
+                id       : 'banks',
+                title    : 'Banks',
+                type     : 'collapsable',
+                icon     : 'account_balance',
+                children : [
+                    {
+                        id   : 'addBank',
+                        title: 'Add Bank',
+                        icon : 'add',
+                        type : 'item',
+                        url  : 'new-bank'
+                    },
+                    {
+                        id   : 'allBanks',
+                        title: 'All Banks',
+                        icon: 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'banks'
+                    }
+                ]
+            },
+            {
+                id       : 'banks',
+                title    : 'Bank Accounts',
+                type     : 'collapsable',
+                icon     : 'account_box',
+                children : [
+                    {
+                        id   : 'addAccount',
+                        title: 'New Bank Account',
+                        icon : 'monetization_on',
+                        type : 'item',
+                        url  : 'new-account'
+                    },
+                    {
+                        id   : 'allAccounts',
+                        title: 'All Bank Accounts',
+                        icon : 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'accounts'
                     }
                 ]
             }

@@ -36,12 +36,17 @@
 
 	    <ng-container matColumnDef="bank">
 	      <th mat-header-cell *matHeaderCellDef> Bank </th>
-	      <td mat-cell *matCellDef="let element"> {{element.account.bank}} </td>
+	      <td mat-cell *matCellDef="let element"> {{element.account?.bank?.name}} </td>
 	    </ng-container>
 
 	    <ng-container matColumnDef="accountNumber">
 	      <th mat-header-cell *matHeaderCellDef> Account Number </th>
-	      <td mat-cell *matCellDef="let element"> {{element.account.account_number}} </td>
+	      <td mat-cell *matCellDef="let element"> {{element.account?.account_number}} </td>
+	    </ng-container>
+
+	    <ng-container matColumnDef="type">
+	      <th mat-header-cell *matHeaderCellDef> Type </th>
+	      <td mat-cell *matCellDef="let element"> {{element.account?.type}} </td>
 	    </ng-container>
 
 	    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

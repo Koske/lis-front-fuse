@@ -10,7 +10,7 @@ export class BusinessClientComponent implements OnInit {
 
     data: any;
    
-    displayedColumns = ['name', 'country', 'city', 'address', 'zip', 'phoneNumber', 'bank', 'accountNumber'];
+    displayedColumns = ['name', 'country', 'city', 'address', 'zip', 'phoneNumber', 'bank', 'accountNumber', 'type'];
     bsnsId: number= -1;
   	constructor(
                 private businessClientService: BusinessClientService,

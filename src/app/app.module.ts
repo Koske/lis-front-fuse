@@ -34,9 +34,11 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { HomeComponent } from './main/home/home.component';
 import { HttpService } from './main/http/http.service';
 import { AuthService } from './main/auth/auth.service';
+import { BankService } from './main/service/bank.service';
 import { ProjectService } from './main/service/project.service';
 import { ProjectTypeService } from './main/service/project-type.service';
 import { PresenceService } from './main/service/presence.service';
+import { CurrencyService } from './main/service/currency.service';
 import { ParticipantService } from './main/service/participant.service';
 import { ParticipantTypeService } from './main/service/participant-type.service';
 import { DataService } from './main/service/data.service';
@@ -46,7 +48,9 @@ import { CalendarService } from './main/calendar/calendar.service';
 import { UserService } from './main/service/user.service';
 import { HolidayService } from './main/service/holiday.service';
 import { UserTypeService } from './main/service/user-type.service';
+import { ProjectExpenseService } from './main/service/project-expense.service';
 import { SalaryService } from './main/service/salary.service';
+import { AccountService } from './main/service/account.service';
 import { BonusService } from './main/service/bonus.service';
 import { DaysOffService } from './main/service/days-off.service';
 import { BusinessClientService } from './main/service/business-client.service';
@@ -101,6 +105,16 @@ import { CalendarModule } from './main/calendar/calendar.module';
 import { CalendarComponent } from './main/calendar/calendar.component';
 import { HolidaysComponent } from './main/holidays/holidays.component';
 import { NewHolidayComponent } from './main/holidays/new-holiday/new-holiday.component';
+import { ProjectExpenseComponent } from './main/project/project-expense/project-expense.component';
+import { NewProjectExpenseComponent } from './main/project/project-expense/new-project-expense/new-project-expense.component';
+import { EditProjectExpenseComponent } from './main/project/project-expense/edit-project-expense/edit-project-expense.component';
+import { BankComponent } from './main/bank/bank.component';
+import { NewBankComponent } from './main/bank/new-bank/new-bank.component';
+import { AccountComponent } from './main/account/account.component';
+import { NewAccountComponent } from './main/account/new-account/new-account.component';
+import { InvoiceComponent } from './main/invoice/invoice.component';
+import { NewInvoiceComponent } from './main/invoice/new-invoice/new-invoice.component';
+import { GeneratedInvoiceComponent } from './main/invoice/generated-invoice/generated-invoice.component';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
@@ -152,7 +166,15 @@ const appRoutes: Routes = [
         { path: ':id/calendar', component: CalendarComponent }
     ] },
     { path: 'holidays', component: HolidaysComponent },
-    { path: 'new-holiday', component: NewHolidayComponent }
+    { path: 'new-holiday', component: NewHolidayComponent },
+    { path: 'new-project-expense', component: NewProjectExpenseComponent },
+    { path: 'edit-expense/:id', component: EditProjectExpenseComponent },
+    { path: 'project-expenses', component: ProjectExpenseComponent },
+    { path: 'new-bank', component: NewBankComponent },
+    { path: 'banks', component: BankComponent },
+    { path: 'accounts', component: AccountComponent },
+    { path: 'new-account', component: NewAccountComponent },
+    { path: 'generated-invoice', component: GeneratedInvoiceComponent}
 
 ];
 
@@ -208,7 +230,17 @@ const appRoutes: Routes = [
         DialogDeclinedDayOffComponent,
         DaysOffUsersComponent,
         HolidaysComponent,
-        NewHolidayComponent
+        NewHolidayComponent,
+        ProjectExpenseComponent,
+        NewProjectExpenseComponent,
+        EditProjectExpenseComponent,
+        BankComponent,
+        NewBankComponent,
+        AccountComponent,
+        NewAccountComponent,
+        InvoiceComponent,
+        NewInvoiceComponent,
+        GeneratedInvoiceComponent
     ],
     imports     : [
         BrowserModule,
@@ -272,7 +304,11 @@ const appRoutes: Routes = [
               UserTypeService,
               PositionService,
               HolidayService,
-              CalendarService
+              CalendarService,
+              ProjectExpenseService,
+              CurrencyService,
+              BankService,
+              AccountService
               ],
     bootstrap   : [
         AppComponent

@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { BusinessClientService } from '../../service/business-client.service';
+
 @Component({
   selector: 'app-new-business-client',
   templateUrl: './new-business-client.component.html',
@@ -20,9 +21,7 @@ export class NewBusinessClientComponent implements OnInit {
 		phoneNumber: '',
         country: '',
         zip: '',
-        city: '',
-        bank: '',
-        accountNumber: ''
+        city: ''
  	}	
     countries: any;
 
@@ -43,9 +42,7 @@ export class NewBusinessClientComponent implements OnInit {
             country : {},
             phoneNumber   	   : {},
             zip: {},
-            city: {},
-            bank: {},
-            accountNumber: {}
+            city: {}
         };
 
 		this._unsubscribeAll = new Subject();
@@ -66,9 +63,7 @@ export class NewBusinessClientComponent implements OnInit {
             country  : ['', Validators.required],
             phoneNumber   : ['', Validators.required],
             zip   : ['', Validators.required],
-            city   : ['', Validators.required],
-            bank   : ['', Validators.required],
-            accountNumber   : ['', Validators.required]
+            city   : ['', Validators.required]
         });
 
         this.form.valueChanges
@@ -119,8 +114,7 @@ export class NewBusinessClientComponent implements OnInit {
         this.client.phoneNumber = this.form.value.phoneNumber;
         this.client.zip = this.form.value.zip;
         this.client.city = this.form.value.city;
-        this.client.bank = this.form.value.bank;
-	    this.client.accountNumber = this.form.value.accountNumber;
+
 	    //ovde treba sub zbog provere broja
 	    this.businessClientService.newBusinessClient(this.client).subscribe((response: any)=> {
 	    	if(response== 'Exists')

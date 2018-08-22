@@ -98,32 +98,6 @@
                 </div>
 
 
-                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-
-                    <mat-form-field fxFlex="50">
-                        <input matInput placeholder="Bank" formControlName="bank" required
-                        type="string" 
-                        >                        <mat-error *ngIf="formErrors.bank.required">
-                            Bank required!
-                        </mat-error>
-                    </mat-form-field>
-
-                </div>
-
-
-                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-
-                    <mat-form-field fxFlex="50">
-                        <input matInput placeholder="Account Number" formControlName="accountNumber" required
-                        type="string" 
-                        >                        <mat-error *ngIf="formErrors.accountNumber.required">
-                            Account Number required!
-                        </mat-error>
-                    </mat-form-field>
-
-                </div>
-
-
 	            <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
 		            <button mat-raised-button type="button" color="accent" (click)="onFinish()"
 		            	[disabled]="!form.valid">
