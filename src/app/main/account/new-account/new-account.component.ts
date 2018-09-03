@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BankService } from '../../service/bank.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AccountService } from '../../service/account.service';
+import { CompanyService } from '../../service/company.service';
 import { BusinessClientService } from '../../service/business-client.service';
 
 @Component({
@@ -14,8 +15,8 @@ import { BusinessClientService } from '../../service/business-client.service';
 })
 export class NewAccountComponent implements OnInit {
    
-	form: FormGroup;
-	formErrors: any;	
+	  form: FormGroup;
+	  formErrors: any;	
     private _unsubscribeAll: Subject<any>;
    	types = [
       {value: 'Devizni'},
@@ -23,6 +24,15 @@ export class NewAccountComponent implements OnInit {
     ];
     banks: any;
     businessClients: any;
+    choice: string;
+    choices  = [
+      'Company',
+      'Business Client'
+    ];
+    companies: any;
+    showBuss: boolean = false;
+    showComp: boolean = false;
+    valid: boolean = false;
 
     /**
      * Constructor
@@ -31,6 +41,7 @@ export class NewAccountComponent implements OnInit {
      */
   	constructor(private bankService: BankService,
                 private businessClientService: BusinessClientService,
+                private companyService: CompanyService,
   				      private _formBuilder: FormBuilder,
              	  private router: Router,
                 private route: ActivatedRoute,
@@ -40,16 +51,25 @@ export class NewAccountComponent implements OnInit {
             type 			   : {},
             accountNumber  	   : {},
             bank: {},
-            businessClient: {}
+            company: {},
+            businessClient: {},
+            iban: {},
+            pib: {},
+            choice: {}
         };
 
 		this._unsubscribeAll = new Subject();
                  }
 
   	ngOnInit() {
+
   		this.bankService.getAllBanks().subscribe((response: any)=> {
   			this.banks = response.banks
   		});
+
+      this.companyService.getCompanies().subscribe((response: any)=> {
+        this.companies = response;
+      })
 
       this.businessClientService.getBusinessClients().subscribe((response: any)=> {
         this.businessClients = response.businessClients;
@@ -59,9 +79,15 @@ export class NewAccountComponent implements OnInit {
 
             type : ['', Validators.required],
             accountNumber  : ['', Validators.required],
+            pib  : ['', Validators.required],
+            company  : [''],
             bank  : ['', Validators.required],
-            businessClient  : ['', Validators.required]
+            businessClient  : [''],
+            choice  : ['', Validators.required],
+            iban  : ['', Validators.required]
         });
+
+        console.log(this.form.valid);
 
         this.form.valueChanges
             .pipe(takeUntil(this._unsubscribeAll))
@@ -103,9 +129,38 @@ export class NewAccountComponent implements OnInit {
     }
 
     onFinish(){
+      if(this.showBuss){
+        this.form.value.company = null;
+      }else {
+        this.form.value.businessClient = null;
+      }
+
     	this.accountService.newAccount(this.form.value);
 
       this.router.navigate(['/accounts']);
     }
 
+    onCheck(c: any){
+      if(c=='Company'){
+        this.showComp = !this.showComp;
+
+        if(this.showBuss)
+          this.showBuss = false;
+
+      }else {
+        this.showBuss = !this.showBuss;
+        
+
+
+        if(this.showComp)
+          this.showComp = false;
+
+      }
+    }
+
+    onValid(type){
+      if(this.form.valid== true && type != '')
+        this.valid = true;
+      console.log(this.valid);
+    }
 }

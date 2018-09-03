@@ -45,6 +45,30 @@
 
                 </div>
 
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                    <mat-form-field fxFlex="50">
+                        <input matInput placeholder="IBAN" formControlName="iban" required
+                        type="string" 
+                        >                        <mat-error *ngIf="formErrors.iban.required">
+                            IBAN required!
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                    <mat-form-field fxFlex="50">
+                        <input matInput placeholder="PIB" formControlName="pib" required
+                        type="string" 
+                        >                        <mat-error *ngIf="formErrors.pib.required">
+                            PIB required!
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
                 <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
                      <mat-form-field>
                         <mat-select placeholder="Bank" formControlName="bank" required>
@@ -59,9 +83,31 @@
                 </div>
 
                 <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-radio-group  formControlName="choice" >
+                        <mat-radio-button *ngFor="let c of choices" [value]="c" (click)="onCheck(c)">
+                            {{c}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="showComp">
                      <mat-form-field>
-                        <mat-select placeholder="Business Client" formControlName="businessClient" required>
-                          <mat-option *ngFor="let b of businessClients" [value]="b.id">
+                        <mat-select placeholder="Company" id="company" formControlName="company"
+                         >
+                          <mat-option (click)="onValid('comp')" *ngFor="let c of companies" [value]="c.id">
+                            {{ c.name }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formErrors.company.required">
+                            Company is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="showBuss">
+                     <mat-form-field>
+                        <mat-select   placeholder="Business Client" formControlName="businessClient" >
+                          <mat-option (click)="onValid('bc')" *ngFor="let b of businessClients" [value]="b.id">
                             {{ b.name }}
                           </mat-option>
                         </mat-select>
@@ -74,7 +120,7 @@
 
 	            <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
 		            <button mat-raised-button type="button" color="accent" (click)="onFinish()"
-		            	[disabled]="!form.valid">
+		            	[disabled]="!valid">
 		                Finish
 		            </button>
 	            </div>

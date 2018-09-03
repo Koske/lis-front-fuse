@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneratedInvoiceComponent } from './generated-invoice.component';
+import { DomesticPdvInvoiceComponent } from './domestic-pdv-invoice.component';
 
-describe('GeneratedInvoiceComponent', () => {
-  let component: GeneratedInvoiceComponent;
-  let fixture: ComponentFixture<GeneratedInvoiceComponent>;
+describe('DomesticPdvInvoiceComponent', () => {
+  let component: DomesticPdvInvoiceComponent;
+  let fixture: ComponentFixture<DomesticPdvInvoiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneratedInvoiceComponent ]
+      declarations: [ DomesticPdvInvoiceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneratedInvoiceComponent);
+    fixture = TestBed.createComponent(DomesticPdvInvoiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

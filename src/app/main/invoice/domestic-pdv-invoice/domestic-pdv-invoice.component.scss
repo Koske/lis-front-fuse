@@ -1,0 +1,558 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+
+    #invoice {
+
+        &.modern {
+            padding: 0;
+
+            .invoice-container {
+                padding: 144px;
+
+                .card {
+                    width: 1020px;
+                    min-width: 1020px;
+                    max-width: 1020px;
+                    padding: 44px;
+                    overflow: hidden;
+                    background: #FFFFFF;
+                    @include mat-elevation(7);
+
+                    .header {
+
+                        .ids {
+                            line-height: 22px;
+                            color: rgba(0, 0, 0, 0.54);
+                            width: 100%;
+
+
+                            .seller {
+                                
+
+                                .logo {
+                                    width: 156px;
+                                }
+                            }
+
+                            .client {
+
+                                .label {
+                                    width: 156px;
+                                    font-size: 24px;
+                                    font-weight: 300;
+                                }
+                                float: right;
+                                margin-top: 80px;
+                                margin-right: 200px;
+                            }
+
+                            .divider {
+                                width: 1px;
+                                margin: 0 48px;
+                                background-color: rgba(0, 0, 0, 0.12);
+                                height: 144px;
+                            }
+                        }
+
+                        .summary {
+                            font-size: 12px;
+
+                            .label {
+                                color: rgba(0, 0, 0, 0.54);
+                                text-align: left;
+                                padding-right: 16px;
+                            }
+
+                            .value {
+                                color: rgba(0, 0, 0, 1);
+                            }
+
+                            .code {
+                                font-size: 35px;
+                                font-weight: 300;
+                            }
+                            td {
+                                padding-top: 2px;
+                            }
+                        }
+                    }
+
+                    .content {
+
+                        .invoice-table {
+                            margin-top: 15px;
+                            font-size: 10px;
+
+                            .title {
+                                font-size: 17px;
+                            }
+
+                            .detail {
+                                margin-top: 8px;
+                                font-size: 10px;
+                                color: rgba(0, 0, 0, 0.54);
+                                max-width: 360px;
+                            }
+                            th, td {
+                                text-align: center;
+                            }
+
+                            .invoice-table-footer {
+
+                                tr {
+                                    td {
+                                        font-size: 10px;
+
+                                        &:first-child {
+                                            text-align: center;
+                                            padding-left: 24px;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 24px;
+                                            text-align: center;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                        .invoice-table-footer {
+                            margin: 32px 0 96px 0;
+
+                            tr {
+
+                                td {
+                                    text-align: center;
+                                    font-size: 10px;
+                                    font-weight: 500;
+                                    color: rgba(0, 0, 0, 0.54);
+                                    border-bottom: none;
+                                    padding: 8px 8px;
+
+                                    &:first-child {
+                                        text-align: left;
+                                    }
+                                }
+
+                                &.discount {
+
+                                    td {
+                                        padding-bottom: 32px;
+                                    }
+                                }
+
+                                &.total {
+
+                                    td {
+                                        padding: 32px 8px;
+                                        border-top: 1px solid rgba(0, 0, 0, 0.12);
+                                        font-size: 35px;
+                                        font-weight: 300;
+                                        color: rgba(0, 0, 0, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .footer {
+
+                        .note {
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin-right: 30px;
+                            margin-top: 50px;
+                            display: inline-block;
+                        }
+
+                        // IE10 fix
+                        .logo, .small-note {
+                            -ms-flex: 0 1 auto;
+                        }
+
+                        .logo {
+                            width: 32px;
+                            min-width: 32px;
+                            margin-right: 24px;
+                        }
+
+                        .small-note {
+                            font-size: 12px;
+                            font-weight: 500;
+                            color: rgba(0, 0, 0, 0.54);
+                            line-height: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* PRINT STYLES */
+    @media print {
+
+        #printButton {
+            display: none;
+        }
+        /* Invoice Specific Styles */
+        #invoice {
+
+            &.modern {
+
+                .invoice-container {
+                    padding-left: 144px;
+                    padding-right: 144px;
+                    padding-top: 0;
+
+                    .card {
+                        width: 100%;
+                        min-width: 0;
+                        background: none;
+                        padding: 0;
+                        box-shadow: none;
+
+                        .header {
+
+                            .ids {
+
+
+                                .seller {
+                                    margin-bottom: 8pt;
+
+
+                                }
+
+                                .client {
+
+                                    .label {
+                                        width: 60pt;
+                                        font-size: 16pt;
+                                    }
+                                }
+
+                                .divider {
+                                    margin: 0 12pt;
+                                    height: 100pt;
+                                }
+                            }
+
+                            .summary {
+                                font-size: 10pt;
+
+                                .code {
+                                    font-size: 18pt;
+
+                                    td {
+                                        padding-bottom: 10pt;
+                                    }
+                                }
+                            }
+                        }
+
+                        .content {
+
+                            .invoice-table-footer {
+
+                                tr {
+
+                                    td {
+
+
+                                        &:first-child {
+
+                                            text-align: center;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 24px;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            .invoice-table-footer {
+                                margin: 16pt 0;
+
+                                tr {
+
+                                    td {
+                                        font-size: 10px;
+
+                                        &:first-child {
+                                            text-align: center;
+                                            padding-left: 24px;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 24px;
+                                            text-align: center;
+                                        }
+                                    }
+
+                                    &.discount {
+
+                                        td {
+                                            padding-bottom: 16pt;
+                                        }
+                                    }
+
+                                    &.total {
+
+                                        td {
+                                            padding: 16pt 4pt 0 4pt;
+                                            font-size: 16pt;
+
+                                            &:first-child {
+                                                padding-left: 0;
+                                            }
+
+                                            &:last-child {
+                                                padding-right: 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .footer {
+
+                            .note {
+                                font-size: 10px;
+                                margin-bottom: 8pt;
+                            }
+
+                            .logo {
+                                font-size: 14pt;
+                                margin-right: 8pt;
+                            }
+
+                            .small-note {
+                                font-size: 8pt;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#pdvSpecification {
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.miniTitle {
+    font-weight: bold;
+}
+.divBorder {
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+}
+
+.col-md-4 {
+    display: inline-block;
+}
+.col-md-6 {
+    display: inline-block;
+}
+.specificationSpan {
+    border-bottom: 1px solid black;
+    width: 20px
+}
+
+.ukupno1 {
+    width: 100px;
+    display: inline-block;
+    margin-left: 53px;
+    text-align: center;
+}
+
+.ukupno2 {
+    width: 100px;
+    display: inline-block;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.ukupno3 {
+    width: 100px;
+    display: inline-block;
+    margin-left: 52px;
+    text-align: center;
+}
+
+#ukupno2Col {
+    margin-left: 15px;
+}
+
+#ukupno3Col {
+    margin-left: 12px;
+}
+
+#slovaDiv {
+    color: rgba(0, 0, 0, 0.54);
+    margin-top: 30px;
+}
+
+
+#UVsaPDVDiv {
+   margin-top: 20px;
+   margin-bottom: 20px; 
+}
+
+
+#UVsaPDVBorderDiv {
+    width: 100px;
+    display: inline-block;
+    margin-left: 50px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#miniTitleDiv {
+    margin-bottom: 20px;
+}
+
+#colBorderDiv {
+    border-bottom: 1px solid black;
+    width: 200px;
+    text-align: center;
+}
+
+#colBorderAlignDiv {
+    border-bottom: 1px solid black;
+    width: 200px;
+    margin-left: 50px;
+    text-align: center;
+}
+
+#mp {
+    margin-left: 10px
+}
+
+#responsibleSignature {
+    margin-left: 80px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#responsibleFullName {
+   margin-left: 225px; 
+   color: rgba(0, 0, 0, 0.54);
+}
+
+#responsibleInfo {
+    margin-left: 145px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#exporterTitle {
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+#exporterCol1 {
+    border-bottom: 1px solid black;
+    width: 200px;
+    text-align: center;
+}
+
+#exporterCol2 {
+    border-bottom: 1px solid black;
+    width: 200px;
+    margin-left: 90px;
+    text-align: center;
+}
+#exporterCol3 {
+    border-bottom: 1px solid black;
+    width: 200px;
+    margin-left: 50px;
+    text-align: center;
+}
+
+#publisherSignature {
+    margin-left: 80px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#publisherFullName {
+    margin-left: 227px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#publisherNote {
+    margin-left: 100px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#specificationRow {
+    margin-top: 10px;
+}
+
+#recipientRow {
+    margin-bottom: 20px; 
+    margin-top: 50px;
+}
+
+#recievedAndRegulated {
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 200px;
+    text-align: center;
+}
+
+#recievedUnderText {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+#recievedText {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#carrierCol {
+    margin-left: 65px;
+}
+
+#carrierRow {
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+#carrierUnderlineRow {
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 200px;
+    text-align: center;
+    margin-left: 20px;
+}
+
+#carrierInfo {
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#tdValue {
+    width: 100px;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+#goodExporter {
+    margin-left: 20px;
+}
+
+tbody {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#accNum {
+    width: 130px;
+    color: rgba(0, 0, 0, 0.54) !important;
+}

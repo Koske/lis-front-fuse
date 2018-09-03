@@ -310,6 +310,50 @@ export const navigation: FuseNavigation[] = [
                         url  : 'accounts'
                     }
                 ]
+            },
+            {
+                id       : 'companies',
+                title    : 'Companies',
+                type     : 'collapsable',
+                icon     : 'business',
+                children : [
+                    {
+                        id   : 'addCompany',
+                        title: 'New Company',
+                        icon : 'add',
+                        type : 'item',
+                        url  : 'new-company'
+                    },
+                    {
+                        id   : 'allCompanies',
+                        title: 'All Companies',
+                        icon : 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'companies'
+                    }
+                ]
+            },
+            {
+                id       : 'invoices',
+                title    : 'Invoices',
+                type     : 'collapsable',
+                icon     : 'event_note',
+                children : [
+                    {
+                        id   : 'addInvoice',
+                        title: 'New Invoice',
+                        icon : 'add',
+                        type : 'item',
+                        url  : 'new-invoice'
+                    },
+                    {
+                        id   : 'allInvoices',
+                        title: 'All Invoices',
+                        icon : 'format_list_bulleted',
+                        type : 'item',
+                        url  : 'invoices'
+                    }
+                ]
             }
         ]
 

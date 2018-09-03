@@ -1,0 +1,428 @@
+<div id="invoice" class="modern page-layout blank" fxLayout="row">
+
+    <div class="invoice-container">
+        <!-- INVOICE -->
+        <div class="card">
+
+            <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+
+                <div class="ids" fxLayout="column">
+                	<div>
+                		<span style="font-weight: bold">Izdavalac racuna: </span>
+                		<span class="label" style="text-align: right;float: right;
+    margin-right: 40px;">broj u evidenciji: </span>
+                	</div>
+
+                    <div fxLayout="row" class="seller" fxLayoutAlign="start center">
+
+                        <div class="logo">
+                            <img src="assets/images/logos/lilly021-logo.png" style="width: 100px; height: 100px; margin-left: 60px;">
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="detail">
+                        	<div style="display: inline-block;">
+	                            <div class="title">
+	                                <span>Ime firme:</span>
+	                            {{invoice.from.title}}</div>
+	                            <div  class="address">
+	                                <span>Adresa:</span>
+	                            	{{invoice.from.address}}
+	                            </div>
+	                            <div  class="phone">
+	                                <span>PIB:</span>
+	                                {{invoice.from.PIB}}
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Maticni Broj:</span>
+	                                {{invoice.from.MB}}
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Tekuci racun:</span>
+	                                {{invoice.from.BA}}
+	                            </div>
+	                        </div>
+	                        <div style="display: inline-block; margin-left: 20px">
+	                            <div  class="phone">
+	                                <span>Telefon:</span>
+	                                {{invoice.from.phone}}
+	                            </div>
+	                            <div  class="email">
+	                                <span>Email:</span>
+	                                {{invoice.from.email}}
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Fax:</span>
+	                            </div>
+	                            <div  class="phone">
+	                                <span>PEPDV:</span>
+	                            </div>
+	                            <div  class="phone">
+	                                <span>APR reg.br:</span>
+	                            </div>
+	                        </div>
+                        </div>
+                    </div>
+                	<div >
+                		<span>*izdavalac racuna se nalazi u registru PDV obveznika </span>
+                	</div>
+                	<div>
+	            		<div style="display: inline-block;">
+	    	                <table class="summary">
+
+			                	<tr>
+			                		<td class="label" style="text-align: left">PDV</td>
+			                	</tr>
+			                    <tr class="code">
+			                        <td class="label">Racun broj:</td>
+			                        <td class="value" id="accNum">{{currentYear}}-{{serialNumber}}</td>
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Datum izdavanja racuna: </td>
+			                        <td class="value" id="tdValue">{{currentDate}}</td>
+			                        <td class="label"> godine</td>
+
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Mesto izdavanja racuna: </td>
+			                        <td class="value" id="tdValue">Novi Sad</td>
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Datum prometa dobara i usluga: </td>
+			                        <td class="value" id="tdValue">{{currentDate}}</td>
+			                        <td class="label"> godine</td>
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Mesto prometa dobara i usluga: </td>
+			                        <td class="value" id="tdValue">Novi Sad</td>
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Rok placanja: </td>
+			                        <td class="value" id="tdValue">{{paymentDeadline}}</td>
+                                    <td class="label"> dana</td>
+
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Nacin placanja: </td>
+			                        <td class="value" id="tdValue">{{paymentMethod}}</td>
+			                    </tr>
+
+			                    <tr>
+			                        <td class="label">Fiskalni isecak BI: </td>
+			                        <td class="value" id="tdValue"></td>
+			                    </tr>
+			                </table>
+			            </div>
+	                	<div  class="client"  style="display: inline-block;">
+		                	<div >
+		                		<span style="font-weight: bold">Primalac računa - kupac/klijent:</span>
+		                	</div>
+
+	                        <div class="detail">
+	                            <div class="title"></div>
+	                            <div  class="phone">
+	                                <span>PIB: {{invoice.to.PIB}}</span>
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Telefon: {{invoice.to.phone}}</span>
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Tekuci racun: {{invoice.to.BA}}</span>
+	                            </div>
+	                            <div  class="phone">
+	                                <span>Fax: {{invoice.to.fax}}</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                	<div style="margin-top: 20px;">
+	                		<span>Dokument izdat po Zakonu o porezu na dodatu vrednost i ostalim propisima </span>
+	                	</div>
+					</div>	               
+                </div>
+
+            </div>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                            <th>r.br</th>
+                            <th>VRSTA-NAZIV DOBARA-USLUGA</th>
+                            <th>jed.mere</th>
+                            <th>kolicina</th>
+                            <th>cena bez pdv</th>
+                            <th>vrednost bez pdv</th>
+                            <th>rabat</th>
+                            <th>OSNOVICA za PDV</th>
+                            <th>stopa pdv</th>
+                            <th>iznos PDV</th>
+                            <th>VREDNOST SA PDV</th>
+                        </tr>
+                        <tr>
+                            <th>-</th>
+                            <th>-</th>
+                            <th>-</th>
+                            <th>-</th>
+                            <th>RSD</th>
+                            <th>RSD</th>
+                            <th>%</th>
+                            <th>RSD</th>
+                            <th>%</th>
+                            <th>RSD</th>
+                            <th>RSD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let service of invoice.services">
+                            <td>
+                                {{service.serialNumber}}
+                            </td>
+                            <td>
+                                {{service.name}}
+                            </td>
+                            <td class="text-right">
+                                {{service.unit}}
+                            </td>
+                            <td class="text-right">
+                                {{service.amount}}
+                            </td>
+                            <td class="text-right">
+                                {{service.priceNoPDV}}
+                            </td>
+                            <td class="text-right">
+                                {{service.valueNoPDV}}
+                            </td>
+                            <td class="text-right">
+                                {{service.rabat}}
+                            </td>
+                            <td class="text-right">
+                                {{service.baseForPDV}}
+                            </td>
+                            <td class="text-right">
+                                {{service.ratePDV}}
+                            </td>
+                            <td class="text-right">
+                                {{service.amountPDV}}
+                            </td>
+                            <td class="text-right">
+                                {{service.valueWithPDV}}
+                            </td>
+                        </tr>
+                    </tbody>
+				    <tfoot class="simple invoice-table-footer">
+					    <tr>
+					      	<td>Ukupno</td>
+					      	<td></td>
+					      	<td></td>
+					      	<td></td>
+					      	<td></td>
+					      	<td>{{invoice.totalNoPDV}}</td>
+					      	<td></td>
+					      	<td>{{invoice.totalNoPDV}}</td>
+					      	<td>20</td>
+					      	<td>{{invoice.totalPDV}}</td>
+					      	<td>{{invoice.totalWithPDV}}</td>
+					    </tr>
+				    </tfoot>
+                </table>
+            </div>
+
+            <div class="row" id="specificationRow">
+            	<span class="miniTitle" >Specifikacija poreza: </span>
+            </div>
+            <div class="row" id="pdvSpecification">
+            	<div class="col-md-4" >
+            		<span >Osnovica za pdv: </span>
+            		<div class="divBorder"></div> + PDV
+            	</div>
+            	<div class="col-md-4">
+            		<span class="specificationSpan"> 10</span>%:
+            		<div class="divBorder"></div> =
+            	</div>
+            	<div class="col-md-4"></div>
+            		<span> vrednost sa pdv: </span>
+            		<div class="divBorder"></div>
+            </div>
+            <div class="row" id="pdvSpecification">
+            	<div class="col-md-4">
+            		<span >Osnovica za pdv: </span>
+            		<div class="divBorder">{{invoice.totalNoPDV}}</div> + PDV
+            	</div>
+            	<div class="col-md-4">
+            		<span class="specificationSpan"> 20</span>%:
+            		<div class="divBorder">{{invoice.totalPDV}} </div> =
+            	</div>
+            	<div class="col-md-4"></div>
+            		<span> vrednost sa pdv: </span>
+            		<div class="divBorder">{{invoice.totalWithPDV}}</div>
+            </div>
+            <div class="row" id="pdvSpecification">
+            	<div class="col-md-4">
+            		<span >Ukupno: </span>
+            		<div class="ukupno1">{{invoice.totalNoPDV}}</div>
+            	</div>
+            	<div class="col-md-4" id="ukupno2Col">
+            		<span> Ukupno: </span>
+            		<div class="ukupno2">{{invoice.totalPDV}}</div> 
+            	</div>
+            	<div class="col-md-4" id="ukupno3Col">
+            		<span> Ukupno:  </span>
+            		<div class="ukupno3">{{invoice.totalWithPDV}}</div>
+				</div>
+            </div>
+
+            <div class="row" id="slovaDiv">
+            	<span id="slovaSpan">Slovima:</span>
+            </div>
+
+            <div class="row" id="UVsaPDVDiv">
+            	<span id="UVsaPDVSpan" class="miniTitle">UKUPNA VREDNOST sa PDV: </span>
+        		<div id="UVsaPDVBorderDiv">{{invoice.totalWithPDV}}</div>
+            </div>
+
+            <div class="row" id="miniTitleDiv">
+        		<span class="miniTitle">Podaci o  odgovornom licu: </span>
+            </div>
+
+            <div class="row">
+            	<div class="col-md-4" id="colBorderDiv">
+            	</div>
+            	<span id="mp">M.P.</span>
+            	<div class="col-md-4" id="colBorderAlignDiv">
+
+            	</div>
+            	<div class="col-md-4" id="colBorderAlignDiv">
+            		
+            	</div>
+            </div>
+
+            <div class="row">
+            	<div class="col-md-4" id="responsibleSignature">
+            		<span>Potpis</span>
+            	</div>
+            	<div class="col-md-4" id="responsibleFullName">
+            		<span>Ime i prezime </span>
+            	</div>
+            	<div class="col-md-4" id="responsibleInfo">
+            		<span>Adresa i broj telefona</span>
+            	</div>
+            </div>
+
+            <div class="row" id="exporterTitle">
+        		<span class="miniTitle">Podaci o  izdavaocu dobara: </span>
+            </div>
+
+            <div class="row">
+            	<div class="col-md-4" id="exporterCol1">
+            	</div>
+            	<div class="col-md-4" id="exporterCol2">
+
+            	</div>
+            	<div class="col-md-4" id="exporterCol3">
+            			
+            	</div>
+            </div>
+
+            <div class="row">
+            	<div class="col-md-4" id="publisherSignature">
+            		<span>Potpis </span>
+            	</div>
+            	<div class="col-md-4" id="publisherFullName">
+            		<span>Ime i prezime </span>
+            	</div>
+            	<div class="col-md-4" id="publisherNote">
+            		<span>Napomena o poreskom oslobodjenju </span>
+            	</div>
+            </div>
+
+            <div class="row">
+            	<div class="col-md-6">
+		            <div class="row" id="recipientRow">
+		            		<span class="miniTitle">Podaci o  primaocu dobara: </span>
+		            </div>
+
+		            <div class="row">
+		            	<div id="recievedAndRegulated">
+		            	</div>
+		        		<span id="mp">M.P.</span>
+
+		            </div>
+
+		            <div class="row">
+		            	<div id="recievedUnderText">
+		            	</div>
+		            		<span id="recievedText">primio i kontrolisao </span>
+		            </div>
+				</div>
+
+				<div class="col-md-6" id="carrierCol">
+		            <div class="row" id="carrierRow">
+		            		<span class="miniTitle" style="margin-left: 20px;">Podaci o  prevozniku dobara: </span>
+		            </div>
+
+		            <div class="row">
+		            	<div id="carrierUnderlineRow">
+		            	</div>
+
+		            </div>
+
+		            <div class="row">
+		            	<div id="carrierInfo">
+		            		<span>Ime-naziv, adresa i registarski broj vozila </span>
+		            	</div>
+		            </div>
+		        </div>
+			</div>
+
+            <div class="footer">
+                <div class="note">Prilikom uplate upisati broj računa u poziv na broj odobrenja na nalogu za prenos: {{currentYear}}-{{serialNumber}}</div>
+            </div>
+
+            <!--
+
+            Use the following elements to add breaks to your pages. This will make sure that the section in between
+            these elements will be printed on a new page. The following two elements must be used before and after the
+            page content that you want to show as a new page. So, you have to wrap your content with them.
+
+            Elements:
+            ---------
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+            <!--
+
+            Example:
+            --------
+
+            Initial page content!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the second page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the third page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+        </div>
+        <!-- / INVOICE -->
+    	<button mat-raised-button color="primary" (click)="onPrint()" id="printButton"> Print</button>
+    </div>
+
+</div>

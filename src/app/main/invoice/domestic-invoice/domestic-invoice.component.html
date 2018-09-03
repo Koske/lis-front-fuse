@@ -1,0 +1,173 @@
+<div id="invoice" class="modern page-layout blank" fxLayout="row">
+
+    <div class="invoice-container">
+
+        <!-- INVOICE -->
+        <div class="card">
+
+            <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+
+                <div class="ids" fxLayout="column">
+
+                    <div fxLayout="row" class="seller" fxLayoutAlign="start center">
+
+
+
+                        <div class="detail">
+                            <div class="title">{{invoice.from.title}}</div>
+                            <div class="address">
+                                {{invoice.from.address}}
+                            </div>
+                            <div class="phone">
+                                <span>PIB:</span>
+                                {{invoice.from.pib}}
+                            </div>
+                            <div class="email">
+                                <span>Tel:</span>
+                                {{invoice.from.tel}}
+                            </div>
+                            <div class="website">
+                                <span>Poslovni racun:</span>
+                                {{invoice.from.ba}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" class="client" fxLayoutAlign="start center">
+
+                        <div class="detail">
+                            <div class="title">{{invoice.client.title}}</div>
+                            <div  class="address">
+                                {{invoice.client.zipAndCity}}
+                            </div>
+                            <div  class="phone">
+                                {{invoice.client.address}}
+                            </div>
+                            <div  class="email">
+                                <span>PIB:</span>
+                                {{invoice.client.pib}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="detail">
+                        <div>Mesto i datum fakturisanja: Novi Sad {{currentDate}}</div>
+                        <div>Napomena o poreskom oslobodjenju:</div>
+                        <div>{{invoice.from.title}} NIJE U SISTEMU PDV-A</div>
+                        <div id="beBold">Racun br. {{serialNumber}}/{{currentYear}} </div>
+                        <div>Datum prometa dobara : {{currentDate}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content">
+                <table class="simple invoice-table">
+                    <thead>
+                        <tr>
+                            <th>R.b.</th>
+                            <th>Opis</th>
+                            <th >J.mere</th>
+                            <th >Kolicina</th>
+                            <th >Cena</th>
+                            <th >Vrednost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let service of invoice.services">
+                            <td>
+                                {{service.serialNumber}}
+                            </td>
+                            <td>
+                                {{service.title}}
+                            </td>
+                            <td>
+                                {{service.unit}}
+                            </td>
+                            <td >
+                                {{service.quantity}}
+                            </td>
+                            <td >
+                                {{service.unitPrice }}
+                            </td>
+                            <td >
+                                {{service.value }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="simple invoice-table-footer">
+                        <tr>
+                            <td id="beBold">Ukupno</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="beBold">1800000</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="footer">
+                <div class="note">Napomena: Cena je izrazena u dinarima po srednjem kursu NBS na dan {{currentDate}} od {{eurToDinar}}</div>
+                <div>Slovima : {{slovima}}</div>
+                <div class="row">
+
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Potpis </span>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Ime i prezime </span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--
+
+            Use the following elements to add breaks to your pages. This will make sure that the section in between
+            these elements will be printed on a new page. The following two elements must be used before and after the
+            page content that you want to show as a new page. So, you have to wrap your content with them.
+
+            Elements:
+            ---------
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+            <!--
+
+            Example:
+            --------
+
+            Initial page content!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the second page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            This is the third page!
+
+            <div class="page-break-after"></div>
+            <div class="page-break-before"></div>
+
+            -->
+
+        </div>
+        <!-- / INVOICE -->
+
+    </div>
+
+</div>

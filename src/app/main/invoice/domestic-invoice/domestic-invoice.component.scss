@@ -14,7 +14,7 @@
                     width: 1020px;
                     min-width: 1020px;
                     max-width: 1020px;
-                    padding: 44px;
+                    padding: 88px;
                     overflow: hidden;
                     background: #FFFFFF;
                     @include mat-elevation(7);
@@ -24,13 +24,12 @@
                         .ids {
                             line-height: 22px;
                             color: rgba(0, 0, 0, 0.54);
-
+                            width: 100%;
                             .detail {
-                                width: 160px;
                             }
 
                             .seller {
-                                
+                                margin-bottom: 80px;
 
                                 .logo {
                                     width: 156px;
@@ -44,6 +43,10 @@
                                     font-size: 24px;
                                     font-weight: 300;
                                 }
+
+                                .detail {
+                                    margin-left: 72%;
+                                }
                             }
 
                             .divider {
@@ -55,11 +58,11 @@
                         }
 
                         .summary {
-                            font-size: 12px;
+                            font-size: 15px;
 
                             .label {
                                 color: rgba(0, 0, 0, 0.54);
-                                text-align: left;
+                                text-align: right;
                                 padding-right: 16px;
                             }
 
@@ -70,9 +73,10 @@
                             .code {
                                 font-size: 35px;
                                 font-weight: 300;
-                            }
-                            td {
-                                padding-top: 10px;
+
+                                td {
+                                    padding-bottom: 32px;
+                                }
                             }
                         }
                     }
@@ -81,7 +85,7 @@
 
                         .invoice-table {
                             margin-top: 96px;
-                            font-size: 10px;
+                            font-size: 15px;
 
                             .title {
                                 font-size: 17px;
@@ -89,12 +93,9 @@
 
                             .detail {
                                 margin-top: 8px;
-                                font-size: 10px;
+                                font-size: 12px;
                                 color: rgba(0, 0, 0, 0.54);
                                 max-width: 360px;
-                            }
-                            th {
-                                text-align: center;
                             }
                         }
 
@@ -104,16 +105,16 @@
                             tr {
 
                                 td {
-                                    text-align: center;
-                                    font-size: 10px;
+                                    font-size: 17px;
                                     font-weight: 500;
-                                    color: rgba(0, 0, 0, 0.54);
                                     border-bottom: none;
                                     padding: 8px 8px;
-
                                     &:first-child {
                                         text-align: left;
                                     }
+                                }
+
+                                th {
                                 }
 
                                 &.discount {
@@ -142,9 +143,7 @@
                         .note {
                             font-size: 15px;
                             font-weight: 500;
-                            margin-right: 30px;
-                            margin-top: 50px;
-                            display: inline-block;
+                            margin-bottom: 24px;
                         }
 
                         // IE10 fix
@@ -173,16 +172,13 @@
     /* PRINT STYLES */
     @media print {
 
-        #printButton {
-            display: none;
-        }
         /* Invoice Specific Styles */
         #invoice {
 
             &.modern {
 
                 .invoice-container {
-                    padding: 144px;
+                    padding: 0;
 
                     .card {
                         width: 100%;
@@ -213,6 +209,7 @@
                                         width: 60pt;
                                         font-size: 16pt;
                                     }
+
                                 }
 
                                 .divider {
@@ -244,7 +241,8 @@
                                     tr {
 
                                         th {
-                                            font-size: 10px;
+                                            font-size: 10pt;
+                                            max-width: 60pt;
 
                                             &:first-child {
                                                 padding-left: 0;
@@ -291,7 +289,7 @@
                                 tr {
 
                                     td {
-                                        font-size: 10px;
+                                        font-size: 13pt;
                                         padding: 4pt 4pt;
 
                                         &:first-child {
@@ -333,7 +331,7 @@
                         .footer {
 
                             .note {
-                                font-size: 10px;
+                                font-size: 10pt;
                                 margin-bottom: 8pt;
                             }
 
@@ -354,119 +352,8 @@
     }
 }
 
-#pdvSpecification {
-    margin-top: 20px;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-.miniTitle {
+#beBold {
     font-weight: bold;
-}
-.divBorder {
-    border-bottom: 1px solid black;
-    width: 100px;
-    display: inline-block;
-    text-align: center;
-}
-
-.col-md-4 {
-    display: inline-block;
-}
-.col-md-6 {
-    display: inline-block;
-}
-.specificationSpan {
-    border-bottom: 1px solid black;
-    width: 20px
-}
-
-.ukupno1 {
-    border-bottom: 1px solid black;
-    width: 100px;
-    display: inline-block;
-    margin-left: 53px;
-}
-
-.ukupno2 {
-    border-bottom: 1px solid black;
-    width: 100px;
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.ukupno3 {
-    border-bottom: 1px solid black;
-    width: 100px;
-    display: inline-block;
-    margin-left: 50px;
-}
-
-#ukupno2Col {
-    margin-left: 15px;
-}
-
-#ukupno3Col {
-    margin-left: 12px;
-}
-
-#slovaDiv {
-    color: rgba(0, 0, 0, 0.54);
-    margin-top: 30px;
-}
-
-
-#UVsaPDVDiv {
-   margin-top: 20px;
-   margin-bottom: 20px; 
-}
-
-
-#UVsaPDVBorderDiv {
-    border: 1px solid black;
-    width: 100px;
-    display: inline-block;
-    margin-left: 50px;
-}
-
-#miniTitleDiv {
-    margin-bottom: 20px;
-}
-
-#colBorderDiv {
-    border-bottom: 1px solid black;
-    width: 200px;
-    text-align: center;
-}
-
-#colBorderAlignDiv {
-    border-bottom: 1px solid black;
-    width: 200px;
-    margin-left: 50px;
-    text-align: center;
-}
-
-#mp {
-    margin-left: 10px
-}
-
-#responsibleSignature {
-    margin-left: 30px;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-#responsibleFullName {
-   margin-left: 124px; 
-   color: rgba(0, 0, 0, 0.54);
-}
-
-#responsibleInfo {
-    margin-left: 65px;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-#exporterTitle {
-    margin-bottom: 20px;
-    margin-top: 50px;
 }
 
 #exporterCol1 {
@@ -481,12 +368,6 @@
     margin-left: 90px;
     text-align: center;
 }
-#exporterCol3 {
-    border-bottom: 1px solid black;
-    width: 200px;
-    margin-left: 50px;
-    text-align: center;
-}
 
 #publisherSignature {
     margin-left: 80px;
@@ -494,62 +375,6 @@
 }
 
 #publisherFullName {
-    margin-left: 230px;
+    margin-left: 227px;
     color: rgba(0, 0, 0, 0.54);
-}
-
-#publisherNote {
-    margin-left: 100px;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-#specificationRow {
-    margin-top: 40px;
-}
-
-#recipientRow {
-    margin-bottom: 20px; 
-    margin-top: 50px;
-}
-
-#recievedAndRegulated {
-    display: inline-block;
-    border-bottom: 1px solid black;
-    width: 200px;
-    text-align: center;
-}
-
-#recievedUnderText {
-    display: inline-block;
-    margin-left: 40px;
-}
-
-#recievedText {
-    color: rgba(0, 0, 0, 0.54);
-}
-
-#carrierCol {
-    margin-left: 65px;
-}
-
-#carrierRow {
-    margin-bottom: 20px;
-    margin-top: 50px;
-}
-
-#carrierUnderlineRow {
-    display: inline-block;
-    border-bottom: 1px solid black;
-    width: 200px;
-    text-align: center;
-}
-
-#carrierInfo {
-    display: inline-block;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-#tdValue {
-    border-bottom: 1px solid black;
-    width: 100px;
 }

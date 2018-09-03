@@ -1,0 +1,45 @@
+tr.active {
+    background-color: #009DFA;
+}
+
+#div1 {
+  background-color: white;
+}
+.projectButtons {
+  float: right;
+  margin-left: 5px;
+}
+
+.mat-header-cell{
+    text-align: center; 
+    vertical-align: middle;
+}
+td{
+    text-align: center; 
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+th {
+  width: 100px;
+}
+
+table {
+  table-layout: fixed;
+}
+
+#buttonGenerate {
+   width: 140px;
+   margin: 0 auto;
+   margin-top: 20px;
+}
+
+#formDiv {
+  width: 30%;
+  display: inline-block !important;
+}
+
+#tableDiv {
+  width: 70%;
+  display: inline-block !important;
+}

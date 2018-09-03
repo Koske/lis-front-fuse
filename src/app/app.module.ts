@@ -38,12 +38,15 @@ import { BankService } from './main/service/bank.service';
 import { ProjectService } from './main/service/project.service';
 import { ProjectTypeService } from './main/service/project-type.service';
 import { PresenceService } from './main/service/presence.service';
+import { CompanyService } from './main/service/company.service';
 import { CurrencyService } from './main/service/currency.service';
 import { ParticipantService } from './main/service/participant.service';
 import { ParticipantTypeService } from './main/service/participant-type.service';
 import { DataService } from './main/service/data.service';
 import { PositionService } from './main/service/position.service';
+import { InvoiceService } from './main/service/invoice.service';
 import { ReportService } from './main/service/report.service';
+import { CountryService } from './main/service/country.service';
 import { CalendarService } from './main/calendar/calendar.service';
 import { UserService } from './main/service/user.service';
 import { HolidayService } from './main/service/holiday.service';
@@ -114,7 +117,13 @@ import { AccountComponent } from './main/account/account.component';
 import { NewAccountComponent } from './main/account/new-account/new-account.component';
 import { InvoiceComponent } from './main/invoice/invoice.component';
 import { NewInvoiceComponent } from './main/invoice/new-invoice/new-invoice.component';
-import { GeneratedInvoiceComponent } from './main/invoice/generated-invoice/generated-invoice.component';
+import { CompanyComponent } from './main/company/company.component';
+import { NewCompanyComponent } from './main/company/new-company/new-company.component';
+import { EditCompanyComponent } from './main/company/edit-company/edit-company.component';
+import { DomesticInvoiceComponent } from './main/invoice/domestic-invoice/domestic-invoice.component';
+import { ForeignInvoiceComponent } from './main/invoice/foreign-invoice/foreign-invoice.component';
+import { DomesticPdvInvoiceComponent } from './main/invoice/domestic-pdv-invoice/domestic-pdv-invoice.component';
+
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
@@ -174,7 +183,14 @@ const appRoutes: Routes = [
     { path: 'banks', component: BankComponent },
     { path: 'accounts', component: AccountComponent },
     { path: 'new-account', component: NewAccountComponent },
-    { path: 'generated-invoice', component: GeneratedInvoiceComponent}
+    { path: 'domestic-pdv-invoice', component: DomesticPdvInvoiceComponent },
+    { path: 'domestic-invoice', component: DomesticInvoiceComponent },
+    { path: 'foreign-invoice', component: ForeignInvoiceComponent },
+    { path: 'new-invoice', component: NewInvoiceComponent },
+    { path: 'invoices', component: InvoiceComponent },
+    { path: 'new-company', component: NewCompanyComponent },
+    { path: 'companies', component: CompanyComponent },
+    { path: 'edit-company/:id', component: EditCompanyComponent }
 
 ];
 
@@ -240,7 +256,12 @@ const appRoutes: Routes = [
         NewAccountComponent,
         InvoiceComponent,
         NewInvoiceComponent,
-        GeneratedInvoiceComponent
+        CompanyComponent,
+        NewCompanyComponent,
+        EditCompanyComponent,
+        DomesticInvoiceComponent,
+        ForeignInvoiceComponent,
+        DomesticPdvInvoiceComponent
     ],
     imports     : [
         BrowserModule,
@@ -308,7 +329,10 @@ const appRoutes: Routes = [
               ProjectExpenseService,
               CurrencyService,
               BankService,
-              AccountService
+              AccountService,
+              InvoiceService,
+              CompanyService,
+              CountryService
               ],
     bootstrap   : [
         AppComponent
