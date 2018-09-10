@@ -79,16 +79,15 @@ export class DomesticPdvInvoiceComponent implements OnInit {
     {
         this.dataService.currentObject.subscribe((object: any)=> {
             console.log(object);
-            let length = object.length;
-            this.paymentMethod = object[length-1].paymentMethod;
-            this.paymentDeadline = object[length-1].paymentDeadline;
-            this.businessClientService.getBusinessClientById(object[0].businessClient).subscribe((response: any)=> {
+            this.paymentMethod = object.pinfo.paymentMethod;
+            this.paymentDeadline = object.pinfo.paymentDeadline;
+            this.businessClientService.getBusinessClientById(object.generalInfo.businessClient).subscribe((response: any)=> {
                 this.invoice.to.BA = response.businessClient.account.account_number;
                 this.invoice.to.PIB = response.businessClient.account.pib;
                 this.invoice.to.phone = response.businessClient.phone_number;
             });
 
-            this.companyService.getCompanyById(object[length-1].company).subscribe((response: any)=> {
+            this.companyService.getCompanyById(object.generalInfo.company).subscribe((response: any)=> {
                 this.invoice.from.title = response.company.name;
                 this.invoice.from.address = response.company.address + ', ' + response.company.city.zip_code + ' ' + response.company.city.name;
                 this.invoice.from.PIB = response.company.account.pib;
@@ -99,7 +98,7 @@ export class DomesticPdvInvoiceComponent implements OnInit {
             });
 
             let serialNumber = 1;
-            object.forEach((r: any)=> {
+            object.items.forEach((r: any)=> {
                 r.serialNumber = serialNumber;
                 r.valueNoPDV = r.amount*r.priceNoPDV;
                 r.baseForPDV = r.valueNoPDV;

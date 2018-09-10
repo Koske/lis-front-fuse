@@ -89,16 +89,15 @@ export class ForeignInvoiceComponent implements OnInit {
         this.dataService.currentObject.subscribe((object: any)=> {
             console.log(object);
 
-            let length = object.length;
 
-            this.paymentMethod = object[length-1].paymentMethod;
-            this.paymentDeadline = object[length-1].paymentDeadline;
-            this.businessClientService.getBusinessClientById(object[0].businessClient).subscribe((response: any)=> {
+            this.paymentMethod = object.pinfo.paymentMethod;
+            this.paymentDeadline = object.pinfo.paymentDeadline;
+            this.businessClientService.getBusinessClientById(object.generalInfo.businessClient).subscribe((response: any)=> {
                 this.invoice.to.title = response.businessClient.name;
                 this.invoice.to.address = response.businessClient.address + ', ' + response.businessClient.zip_code + ' ' + response.businessClient.city.country.name;
             });
 
-            this.companyService.getCompanyById(object[length-1].company).subscribe((response: any)=> {
+            this.companyService.getCompanyById(object.generalInfo.company).subscribe((response: any)=> {
                 this.invoice.from.title = response.company.name;
                 this.invoice.from.address = response.company.address;
                 this.invoice.from.web = response.company.web;
@@ -112,7 +111,7 @@ export class ForeignInvoiceComponent implements OnInit {
             });
 
             let serialNumber = 1;
-            object.forEach((r: any)=> {
+            object.items.forEach((r: any)=> {
                 r.serialNumber = serialNumber;
                 r.valueNoPDV = r.amount*r.priceNoPDV;
                 r.baseForPDV = r.valueNoPDV;
@@ -120,11 +119,12 @@ export class ForeignInvoiceComponent implements OnInit {
                 r.valueWithPDV = r.baseForPDV;
                 this.invoice.totalNoPDV += r.baseForPDV;
                 this.invoice.services.push(r);
-            	this.invoice.currency = r.currency;
 
                 serialNumber++;
             });
-	    	this.bankService.getExchangeRate(object[length-1].currency.code).subscribe((response: any)=> {
+            this.invoice.currency = object.pinfo.currency;
+
+	    	this.bankService.getExchangeRate(object.pinfo.currency.code).subscribe((response: any)=> {
 	    		this.foreignToRSD = +response;
 	    		this.totalRSD = this.invoice.totalNoPDV*(+response);
 	    	});

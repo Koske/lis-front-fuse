@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
     <div class="row" id="div1">
 
-    	<button id="filterButton" type="button" mat-raised-button color="accent" (click)="toggleClick()">Filters</button>
+    	<button id="filterButton" type="button" mat-raised-button color="accent" (click)="toggleClick()"><mat-icon class="s-36">tune</mat-icon></button>
 
 
         <button class="projectButtons" type="button" (click)="onFinish()" mat-raised-button color="green">Finish</button>
@@ -87,4 +87,5 @@
           <button (click)="newPage(page)" *ngFor="let page of totalPages?.total_pages" [ngClass]="{active:totalPages?.page == page}">{{page}}</button>
           <button (click)="lastPage()" [disabled]="currentPage == total">Last</button>
 	</div>
+
 </div>

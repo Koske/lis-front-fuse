@@ -80,19 +80,19 @@
                                 {{service.serialNumber}}
                             </td>
                             <td>
-                                {{service.title}}
+                                {{service.name}}
                             </td>
                             <td>
                                 {{service.unit}}
                             </td>
                             <td >
-                                {{service.quantity}}
+                                {{service.amount}}
                             </td>
                             <td >
-                                {{service.unitPrice }}
+                                {{service.priceNoPDV }} Din
                             </td>
                             <td >
-                                {{service.value }}
+                                {{service.value }} Din
                             </td>
                         </tr>
                     </tbody>
@@ -103,7 +103,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td id="beBold">1800000</td>
+                            <td id="beBold">{{invoice.total}} Din</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -111,19 +111,28 @@
 
             <div class="footer">
                 <div class="note">Napomena: Cena je izrazena u dinarima po srednjem kursu NBS na dan {{currentDate}} od {{eurToDinar}}</div>
-                <div>Slovima : {{slovima}}</div>
+                <div>Slovima : {{invoice.slovima}} i {{invoice.para}}/100</div>
                 <div class="row">
 
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
-                            <span>Potpis </span>
-                        </div>
-                        <div class="col-md-6">
-                            <span>Ime i prezime </span>
-                        </div>
-
+                        <mat-grid-list cols="6" rowHeight="40px">
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile id="exporterCol1"></mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile id="exporterCol2"></mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                        </mat-grid-list>
+                        <mat-grid-list cols="6" rowHeight="40px">
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile>Primio</mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                            <mat-grid-tile>Fakturisao</mat-grid-tile>
+                            <mat-grid-tile></mat-grid-tile>
+                        </mat-grid-list>
                     </div>
                 </div>
 
@@ -167,7 +176,7 @@
 
         </div>
         <!-- / INVOICE -->
-
+        <button mat-raised-button color="primary" (click)="onPrint()" id="printButton"> Print</button>
     </div>
 
 </div>

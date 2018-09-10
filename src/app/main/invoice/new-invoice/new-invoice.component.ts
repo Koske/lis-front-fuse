@@ -20,18 +20,32 @@ export class NewInvoiceComponent implements OnInit {
 	form: FormGroup;
 	formErrors: any;	
     private _unsubscribeAll: Subject<any>;
-    invoice: any[]=[];
+    invoice: any;
 	businessClients: any;
     companies: any;
     displayedColumns = ['name', 'unit', 'amount', 'priceNoPDV'];
 	@ViewChild('table') table;
+    items: any[]=[];
 	data: any[] = [];
 	temp: any[] = [];
 	serialNumber: number = 0;
     added: boolean = false;
+    domesticNoPDV: boolean = false;
+    domestic: boolean = false;
     currencies: any;
     types = ['Domaci', 'Domaci PDV', 'Inostrani'];
-    domestic: boolean = false;
+    toSend = {
+        items : [],
+        pinfo : '',
+        generalInfo : ''
+    }
+    // Vertical Stepper
+    verticalStepperStep1: FormGroup;
+    verticalStepperStep2: FormGroup;
+    verticalStepperStep3: FormGroup;
+    verticalStepperStep1Errors: any;
+    verticalStepperStep2Errors: any;
+    verticalStepperStep3Errors: any;
     /**
      * Constructor
      *
@@ -62,6 +76,27 @@ export class NewInvoiceComponent implements OnInit {
             priceNoPDV  	   		   : {}
         };
 
+        this.verticalStepperStep1Errors = {
+            businessClient                : {},
+            type                       : {},
+            company                       : {}
+        };
+
+        this.verticalStepperStep2Errors = {
+            paymentMethod                : {},
+            paymentDeadline                       : {},
+            currency                       : {},
+            slovima                       : {}
+        };
+
+        this.verticalStepperStep3Errors = {
+            name                : {},
+            unit                       : {},
+            amount                       : {},
+            priceNoPDV                       : {}
+        };
+
+
 		this._unsubscribeAll = new Subject();
 
     }
@@ -91,16 +126,77 @@ export class NewInvoiceComponent implements OnInit {
             priceNoPDV  	: ['', Validators.required]
         });
 
+        // Vertical Stepper form stepper
+        this.verticalStepperStep1 = this._formBuilder.group({
+            businessClient: ['', Validators.required],
+            type : ['', Validators.required],
+            company : ['', Validators.required]
+        });
+
+        this.verticalStepperStep2 = this._formBuilder.group({
+            paymentMethod: ['', Validators.required],
+            paymentDeadline: ['', Validators.required],
+            currency: ['', Validators.required],
+            slovima: ['', Validators.required]
+        });
+
+        this.verticalStepperStep3 = this._formBuilder.group({
+            name      : ['', Validators.required],
+            unit     : ['', Validators.required],
+            amount: ['', Validators.required],
+            priceNoPDV: ['', Validators.required]
+        });
+
+        this.verticalStepperStep1.valueChanges
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                this.onFormValuesChanged();
+                
+                if(this.verticalStepperStep1.value.type == 'Domaci' || this.verticalStepperStep1.value.type == 'Domaci PDV'){
+                    if(this.verticalStepperStep1.value.type == 'Domaci'){
+                        this.verticalStepperStep2 = this._formBuilder.group({
+                            slovima: ['', Validators.required]
+                        });
+                        this.domestic = true;
+                        this.domesticNoPDV = true;
+                    }else {
+                        this.verticalStepperStep2 = this._formBuilder.group({
+                            paymentMethod: ['', Validators.required],
+                            paymentDeadline: ['', Validators.required],
+                            slovima: ['', Validators.required]
+                        });
+                        this.domesticNoPDV = false;
+                        this.domestic = true;
+                    }
+                }else if(this.verticalStepperStep1.value.type == 'Inostrani'){
+                    this.domesticNoPDV = false;
+                    this.domestic = false;
+                    this.verticalStepperStep2 = this._formBuilder.group({
+                        paymentMethod: ['', Validators.required],
+                        paymentDeadline: ['', Validators.required],
+                        currency: ['', Validators.required]
+                    });
+                }
+            });
+
+        this.verticalStepperStep2.valueChanges
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                this.onFormValuesChanged();
+            });
+
+        this.verticalStepperStep3.valueChanges
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                this.onFormValuesChanged();
+            });
+
         this.form.valueChanges
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
                 this.onFormValuesChanged();
 
-                if(this.form.value.type == 'Domaci' || this.form.value.type == 'Domaci PDV'){
-                    this.domestic = true;
-                }else if(this.form.value.type == 'Inostrani'){
-                    this.domestic = false;
-                }
+
             });
 
 
@@ -145,48 +241,37 @@ export class NewInvoiceComponent implements OnInit {
 
     onAdd(){
         this.added = true;
-    	this.invoice.push(this.form.value);
+        this.toSend.generalInfo = (this.verticalStepperStep1.value);
+        this.toSend.pinfo = (this.verticalStepperStep2.value);
+        this.toSend.items.push(this.verticalStepperStep3.value);
+        
+        this.items.push(this.verticalStepperStep3.value);
+        
+        console.log(this.toSend);
+    	this.invoice = this.toSend;
+        console.log(this.invoice);
     	this.table.renderRows();
 
-
-    	
-        let client = this.form.value.businessClient;
-        let company = this.form.value.company;
-    	let type = this.form.value.type;
-        let method = this.form.value.paymentMethod;
-        let deadline = this.form.value.paymentDeadline;
-        let currency = this.form.value.currency;
-    	// this.form.reset();
-        this.form = this._formBuilder.group({
-
-            name 			: ['', Validators.required],                    
-            businessClient  : [client, Validators.required],
-            unit  			: ['', Validators.required],
-            amount          : ['', Validators.required],
-            type            : [type, Validators.required],
-            slovima         : [type, Validators.required],
-            paymentMethod   : [method, Validators.required],
-            currency        : [currency, Validators.required],
-            paymentDeadline : [deadline, Validators.required],
-            company  		: [company, Validators.required],
-            priceNoPDV  	: ['', Validators.required]
-        });
+        this.verticalStepperStep3.reset();
+        this.verticalStepperStep3Errors = {
+            name                    : {},
+            unit                       : {},
+            amount                       : {},
+            priceNoPDV                       : {}
+        };
 
     }
 
     onInvoice(){
-    	this.dataService.addObject(this.invoice);
-
-        let length = this.invoice.length;
-        
+    	this.dataService.addObject(this.invoice);        
 
         this.invoiceService.newInvoice(this.invoice);
 
-        if(this.invoice[length-1].type == 'Domaci PDV'){
+        if(this.invoice.generalInfo.type == 'Domaci PDV'){
     	    this.router.navigate(['/domestic-pdv-invoice']);
-        }else if(this.invoice[length-1].type == 'Domaci'){
-            this.router.navigate(['/domestic-invoice-']);
-        }else if(this.invoice[length-1].type == 'Inostrani'){
+        }else if(this.invoice.generalInfo.type == 'Domaci'){
+            this.router.navigate(['/domestic-invoice']);
+        }else if(this.invoice.generalInfo.type == 'Inostrani'){
             this.router.navigate(['/foreign-invoice']);
         }
     }

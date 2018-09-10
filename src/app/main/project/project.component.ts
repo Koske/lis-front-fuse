@@ -42,7 +42,7 @@ export class ProjectComponent implements OnInit {
       startDate: null,
       endDate: null,
       dates: null
-    }
+    };
     filterDate: boolean = false;
     dates = [
       {value: 'unixStartDate', viewValue: 'Start date'},

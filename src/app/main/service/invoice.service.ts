@@ -19,4 +19,23 @@ export class InvoiceService {
   	getLastSerialNumber(invoice: any){
   	  	return this.httpService.post("getLastSerialNumber", {invoice: invoice});
   	}
+
+    getInvoices(){
+      return this.httpService.get("getInvoices");
+    }
+
+    getInvoiceById(id: any){
+      return this.httpService.post("getInvoiceById", { id: id});
+    }
+
+    filterInvoices(query: any){
+      return this.httpService.post("filterInvoices", query);
+    }
+
+    removeInvoice(id: any){
+      this.httpService.post("removeInvoice", { id: id}).subscribe(
+              (response) => console.log(response),
+              (error) => console.log(error)
+          );
+    }
 }

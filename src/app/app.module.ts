@@ -18,6 +18,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ColorPickerModule } from 'ngx-color-picker';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { DatePipe } from '@angular/common';
 
@@ -45,6 +47,7 @@ import { ParticipantTypeService } from './main/service/participant-type.service'
 import { DataService } from './main/service/data.service';
 import { PositionService } from './main/service/position.service';
 import { InvoiceService } from './main/service/invoice.service';
+import { InvoiceItemService } from './main/service/invoice-item.service';
 import { ReportService } from './main/service/report.service';
 import { CountryService } from './main/service/country.service';
 import { CalendarService } from './main/calendar/calendar.service';
@@ -123,6 +126,7 @@ import { EditCompanyComponent } from './main/company/edit-company/edit-company.c
 import { DomesticInvoiceComponent } from './main/invoice/domestic-invoice/domestic-invoice.component';
 import { ForeignInvoiceComponent } from './main/invoice/foreign-invoice/foreign-invoice.component';
 import { DomesticPdvInvoiceComponent } from './main/invoice/domestic-pdv-invoice/domestic-pdv-invoice.component';
+import { InvoiceItemComponent } from './main/invoice/invoice-item/invoice-item.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -190,7 +194,8 @@ const appRoutes: Routes = [
     { path: 'invoices', component: InvoiceComponent },
     { path: 'new-company', component: NewCompanyComponent },
     { path: 'companies', component: CompanyComponent },
-    { path: 'edit-company/:id', component: EditCompanyComponent }
+    { path: 'edit-company/:id', component: EditCompanyComponent },
+    { path: 'invoice-item/:id', component: InvoiceItemComponent }
 
 ];
 
@@ -261,7 +266,8 @@ const appRoutes: Routes = [
         EditCompanyComponent,
         DomesticInvoiceComponent,
         ForeignInvoiceComponent,
-        DomesticPdvInvoiceComponent
+        DomesticPdvInvoiceComponent,
+        InvoiceItemComponent
     ],
     imports     : [
         BrowserModule,
@@ -291,6 +297,8 @@ const appRoutes: Routes = [
         MatProgressBarModule,
         MatTooltipModule,
         MatToolbarModule,
+        MatGridListModule,
+        MatStepperModule,
         ColorPickerModule,
 
         // Fuse modules
@@ -332,7 +340,8 @@ const appRoutes: Routes = [
               AccountService,
               InvoiceService,
               CompanyService,
-              CountryService
+              CountryService,
+              InvoiceItemService
               ],
     bootstrap   : [
         AppComponent
